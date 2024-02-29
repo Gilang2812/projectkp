@@ -1,0 +1,78 @@
+# Node.js
+node_modules/
+
+# Editor
+.vscode/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# npm
+npm-debug.log*
+*.lock
+node_modules/
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript
+*.tsbuildinfo
+
+# System
+/System Volume Information/
+\$RECYCLE.BIN/
+
+# Visual Studio Code directories
+.vscode/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Yarn
+yarn-error.log
+
+# Virtual environment
+venv/
+env/
+
+# Ignore local configuration
+config/local.env
+
+# dotenv environment variables file
+.env
+
+# Production build output
+/build/
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+
+# End-to-end testing files
+*.har
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,0 +1,294 @@
+<div class="w-fit">
+    <header
+        class="bg-gradient-to-r from-[#4f4a4a] w-full via-[#605c5c] to-[#351f1f] max-h-32 flex items-center min-h-20 px-14 text-white gap-5">
+        <div>
+            <i class="fa-solid fa-chart-simple fa-2xl fa-flip-horizontal" style="color: #ffffff;"></i>
+        </div>
+        <div>
+            <h1 class="font-semibold text-2xl">Critical Part Detail</h1>
+            <p class="text-xs">Dashboard Critical Report</p>
+        </div>
+    </header>
+
+    <section class="p-12">
+        <div class="flex gap-10">
+            <div id="jenisBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                <h1 class="pb-2 font-bold"> Jenis</h1>
+                <hr class="py-2">
+                <select class="rounded-sm" name="jenisFilter" id="jenisFilter">
+                    <option class="rounded" value="tidak ada">tidak ada</option>
+                    <% data.jenis.forEach((jenis, index) => { %>
+                    <option value="<%= jenis.jenis %>"><%= jenis.jenis %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div id="ketersediaanBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                <h1 class="pb-2 font-bold"> Ketersediaan</h1>
+                <hr class="py-2">
+                <select class="w-full" name="ketersediaanFilter" id="ketersediaanFilter">
+                    <option value="tidak ada">tidak ada</option>
+                    <option value="cukup">cukup</option>
+                    <option value="kurang">kurang</option>
+                </select>
+            </div>
+            <div id="mrpBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                <h1 class="pb-2 font-bold"> Mrp</h1>
+                <hr class="py-2">
+                <select class="w-full" name="mrpFilter" id="mrpFilter">
+                    <option value="tidak ada">tidak ada</option>
+                    <% data.mrp.forEach((mrp, index) => { %>
+                    <option value="<%= mrp.mrp %>"><%= mrp.mrp %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <div class="w-fit h-fit my-12">
+            <canvas class="h-96" id="clusteredChart" dataGrafik='<%= JSON.stringify(data.dataGrafik) %>'></canvas>
+        </div>
+
+        <div class="w-full px-2 py-4">
+            <input class="w-full px-5 py-3  rounded-3xl border-2 border-amber-800 focus:border-amber-800" type="text"
+                name="search" id="search">
+        </div>
+        <div class="w-fit">
+            <div class="bg-white rounded-lg overflow-auto w-fit shadow-md">
+                <div class="shadow-sm overflow-hidden">
+                    <table
+                        class="table-auto w-fit border-collapse px-4 md:px-8 lg:px-12 even:bg-[#F8F9FC] odd:bg-white">
+                        <thead class="bg-[#F1F3F9]">
+                            <tr class="">
+                                <th class="py-4 px-4">No</th>
+                                <th class="p-4">material master</th>
+                                <th class="px-4 w-fit">deskripsi</th>
+                                <th class="px-4 w-fit">User</th>
+                                <th class="px-4 w-fit">ON HAND</th>
+                                <th class="px-4 w-fit">ON PR</th>
+                                <th class="px-4 w-fit">ON PO</th>
+                                <th class="px-4 w-fit">Jan</th>
+                                <th class="px-4 w-fit">Feb</th>
+                                <th class="px-4 w-fit">Mar</th>
+                                <th class="px-4 w-fit">Apr</th>
+                                <th class="px-4 w-fit">Mei</th>
+                                <th class="px-4 w-fit">Jun</th>
+                                <th class="px-4 w-fit">Jul</th>
+                                <th class="px-4 w-fit">Ags</th>
+                                <th class="px-4 w-fit">Sep</th>
+                                <th class="px-4 w-fit">Okt</th>
+                                <th class="px-4 w-fit">Nov</th>
+                                <th class="px-4 w-fit">Des</th>
+                                <th class="px-4 w-fit ">Total Jan</th>
+                                <th class="px-8 w-full">Total Jan-Des</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.criticalParts.forEach((critical, index) => { %>
+                            <tr class="even:bg-[#F8F9FC] odd:bg-white">
+                                <td class="px-4"><%= index + 1 %></td>
+                                <td class="px-4"><%= critical.material_master %> </td>
+                                <td class="px-4"><%= critical.Barang.deskripsi %></td>
+                                <td class="px-4"><%= critical.Unit.unit.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.Barang.on_hand.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.Barang.on_proccess.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.Barang.on_po.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.jan.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.feb.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.mar.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.apr.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.mei.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.jun.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.jul.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.aug.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.sep.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.oct.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.nov.toLocaleString() %></td>
+                                <td class="px-4"><%= critical.des.toLocaleString() %></td>
+                                <td class="flex-row px-8 total-jan-des">
+                                    Rp&nbsp;<%= (critical.jan*critical.Barang.harga).toLocaleString() %>
+                                </td>
+                                <td class="px-8 total-jan-des">
+                                    Rp&nbsp;<%= ((critical.jan+critical.feb+critical.mar+critical.apr+critical.mei+critical.jun+critical.jul+critical.aug+critical.sep+critical.oct+critical.nov+critical.des)*critical.Barang.harga).toLocaleString() %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<script>
+    const searchInput = document.getElementById('search');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    searchInput.addEventListener('input', function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const materialMaster = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const deskripsi = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            const unit = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+            const user = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+
+            if (materialMaster.includes(searchText) ||
+                deskripsi.includes(searchText) ||
+                user.includes(searchText) ||
+                unit.includes(searchText)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+    });
+
+    function toggleJenis(clickedButtonId) {
+        let jenis = document.getElementById('jenis');
+        const buttons = jenis.querySelectorAll('button');
+        const selectedJenis = buttons.find(button => button.id === clickedButtonId).innerText;
+
+        tableRows.forEach(row => {
+            const rowJenis = row.querySelector('td:nth-child(4)').textContent
+                .toLowerCase(); // Assuming jenis is in the 4th column
+            if (rowJenis.includes(selectedJenis.toLowerCase())) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        buttons.forEach(button => {
+            if (button.id === clickedButtonId) {
+                button.classList.add('bg-blue-500', 'text-white');
+            } else {
+                button.classList.remove('bg-blue-500', 'text-white');
+                button.classList.add('bg-gray-300', 'text-gray-700');
+            }
+        });
+    }
+
+
+    function toggleMrp(clickedButtonId) {
+        let jenis = document.getElementById('mrp')
+        const buttons = jenis.querySelectorAll('button');
+        buttons.forEach(button => {
+            if (button.id === clickedButtonId) {
+                button.classList.add('bg-blue-500', 'text-white');
+            } else {
+                button.classList.remove('bg-blue-500', 'text-white');
+                button.classList.add('bg-gray-300', 'text-gray-700');
+            }
+        });
+    }
+
+    function toggleKetersediaan(clickedButtonId) {
+        let jenis = document.getElementById('ketersediaan')
+        const buttons = jenis.querySelectorAll('button');
+        buttons.forEach(button => {
+            if (button.id === clickedButtonId) {
+                button.classList.add('bg-blue-500', 'text-white');
+            } else {
+                button.classList.remove('bg-blue-500', 'text-white');
+                button.classList.add('bg-gray-300', 'text-gray-700');
+            }
+        });
+    }
+
+    function updateURLAndReload() {
+        const jenisFilter = document.getElementById('jenisFilter').value;
+        const ketersediaanFilter = document.getElementById('ketersediaanFilter').value;
+        const mrpFilter = document.getElementById('mrpFilter').value;
+
+        // Save selected values to sessionStorage
+        sessionStorage.setItem('jenisFilter', jenisFilter);
+        sessionStorage.setItem('ketersediaanFilter', ketersediaanFilter);
+        sessionStorage.setItem('mrpFilter', mrpFilter);
+
+        // Update the URL
+        const url = new URL(window.location.href);
+        url.searchParams.set('jenisFilter', jenisFilter);
+        url.searchParams.set('ketersediaanFilter', ketersediaanFilter);
+        url.searchParams.set('mrpFilter', mrpFilter);
+
+        // Replace the current URL without reloading the page
+        history.replaceState(null, null, url.toString());
+
+        // Reload the page
+        window.location.reload();
+    }
+
+    // Add event listeners to the dropdowns
+    document.getElementById('jenisFilter').addEventListener('change', updateURLAndReload);
+    document.getElementById('ketersediaanFilter').addEventListener('change', updateURLAndReload);
+    document.getElementById('mrpFilter').addEventListener('change', updateURLAndReload);
+
+    // Function to set selected values on page load
+    function setSelectedValuesOnLoad() {
+        const jenisFilter = sessionStorage.getItem('jenisFilter');
+        const ketersediaanFilter = sessionStorage.getItem('ketersediaanFilter');
+        const mrpFilter = sessionStorage.getItem('mrpFilter');
+
+        if (jenisFilter) {
+            document.getElementById('jenisFilter').value = jenisFilter;
+        }
+
+        if (ketersediaanFilter) {
+            document.getElementById('ketersediaanFilter').value = ketersediaanFilter;
+        }
+
+        if (mrpFilter) {
+            document.getElementById('mrpFilter').value = mrpFilter;
+        }
+    }
+
+    // Call the function on page load
+    window.addEventListener('load', setSelectedValuesOnLoad);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Mengambil dataGrafik dari atribut data pada elemen canvas
+        const canvas = document.getElementById("clusteredChart");
+        let dataGrafik = canvas.getAttribute('dataGrafik')
+        dataGrafik = JSON.parse(dataGrafik)
+        console.log(dataGrafik)
+        // Membuat data yang dibutuhkan untuk Chart.js
+        const labels = dataGrafik.map((item) => item.kategori);
+        const totalOnHandData = dataGrafik.map((item) => item.totalOnHandForKategori);
+        const totalJanData = dataGrafik.map((item) => item.totalJanForKategori);
+
+        // Membuat grafik menggunakan Chart.js
+        const ctx = canvas.getContext("2d");
+        const clusteredChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: "Total On Hand",
+                        data: totalOnHandData,
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "Required per Month",
+                        data: totalJanData,
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: false,
+
+                    },
+                    y: {
+                        stacked: false,
+                    },
+                },
+            },
+        });
+    });
+</script>

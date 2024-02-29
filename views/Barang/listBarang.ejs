@@ -1,0 +1,126 @@
+<section class="lg:p-12  p-4 md:p-22 ">
+    <div class="bg-white p-4 rounded-2xl h-screen  w-full">
+
+        <div class="pb-8">
+            <h2 class="text-4xl text-[#605c5c] font-bold">Daftar Barang</h2>
+        </div>
+        <div class="flex w-full justify-end px-5 py-4">
+            <a class="bg-gradient-to-b from-green-400 to-teal-600 px-3 py-1 rounded-lg text-white shadow-md shadow-emerald-700"
+                href="./addBarang">
+                +
+                Barang</a>
+        </div>
+        <div class="py-4">
+            <span class="py-4">
+                Download tempalte for edit or input?&nbsp;
+                <button class="text-blue-400 hover:text-pink-500" id="downloadBtn">Click here</button>
+            </span>
+        </div>
+        <hr class="py-2">
+        <div class="py-8">
+            <input class="w-full border-2 rounded-3xl border-bro border-stone-400 py-3  pl-5 inset-x-px" type="text" name="search"
+                id="search" placeholder="search">
+        </div>
+        <div class="bg-white shadow-cyan-200 rounded-3xl overflow-auto border-2 shadow-md">
+            <div class="shadow-sm shadow-cyan-300 overflow-hidden">
+                <table class="table-auto w-full border-collapse px-4 md:px-8 lg:px-12 text-center">
+                    <thead class="bg-gray-300">
+                        <tr>
+                            <th class="px-2 py-2">No</th>
+                            <th>material_master</th>
+                            <th>deskripsi</th>
+                            <th>Harga</th>
+                            <th>on_hand</th>
+                            <th>on_po</th>
+                            <th>on_proses</th>
+                            <th>kategori</th>
+                            <th>jenis</th>
+                            <th>Mrp</th>
+                            <th>Uom</th>
+                            <th>Ket</th>
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+
+                    <tbody class="border border-y-[#E1CFFF]">
+                        <% data.forEach((barang, index) => { %>
+                        <tr
+                            class=" bg-gradient-to-t hover:from-gray-50 hover:to-slate-200 odd:bg-gray-100 even:bg-white">
+                            <td><%= index+1 %></td>
+                            <td><%= barang.material_master %></td>
+                            <td><%= barang.deskripsi %></td>
+                            <td><%= barang.harga.toLocaleString() %></td>
+                            <td><%= barang.on_hand.toLocaleString() %></td>
+                            <td><%= barang.on_po.toLocaleString() %></td>
+                            <td><%= barang.on_proccess.toLocaleString() %></td>
+                            <td><%= barang.Kategori.kategori %></td>
+                            <td><%= barang.Jeni.jenis %></td>
+                            <td><%= barang.Mrp.mrp %></td>
+                            <td><%= barang.Uom.uom %></td>
+                            <td><%= barang.ket %></td>
+
+                            <!-- <td class="p-2 text-white jus">
+                                <div class="flex justify-evenly">
+                                    <button
+                                        class="transition-all duration-500 ease-linear py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br hover:bg-gradient-to-r from-red-500 to-rose-600 active:from-red-700 active:to-rose-950  hover:from-red-400 hover:to-rose-600  rounded-xl">Delete</button>
+                                    <button
+                                        class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</button>
+                                </div>
+                            </td> -->
+                        </tr>
+                        <% }) %>
+                    </tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+        // Get table data
+        const table = document.querySelector('.table-auto');
+        const sheet = XLSX.utils.table_to_sheet(table);
+
+        // Exclude the last column (Action column)
+        const range = XLSX.utils.decode_range(sheet['!ref']);
+        range.e.c--; // Reduce the end column index
+
+        // Update the sheet range
+        sheet['!ref'] = XLSX.utils.encode_range(range);
+
+        // Create a workbook
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
+
+        // Save as Excel file
+        XLSX.writeFile(wb, 'table_barang.xlsx');
+    });
+
+    const searchInput = document.getElementById('search');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+
+            // Gunakan some untuk mengecek apakah ada setidaknya satu sel yang cocok dengan teks pencarian
+            const isMatch = Array.from(cells).some(cell => {
+                const cellText = cell.textContent.toLowerCase();
+                return cellText.includes(searchText);
+            });
+
+            // Menunjukkan atau menyembunyikan baris berdasarkan hasil pencarian
+            if (isMatch) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+</script>

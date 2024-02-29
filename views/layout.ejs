@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./stylesheets/main.css" rel="stylesheet">
+    <link href="./stylesheets/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./images/logo-PSC.png" type="image/x-icon">
+
+    <% if (locals.title) { %>
+    <title><%= title %></title>
+    <% }   else { %>
+    <title>SIG | Critical Part</title>
+    <% } %>
+    <style>
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="grid grid-cols-1 md:grid-cols-6 h-screen bg-blue-50">
+
+    <nav class="smd:col-span-1  bg-gradient-to-b from-[#605c5c] from-[2%] via-30%  via-[#482a2a]  to-[#2c2323] ">
+        <div
+            class="border-l-2  border-r-2 border-t-2  shadow-xl shadow-yellow-800 p-2 text-white flex flex-col font-mono font-extrabold text-lg min-h-full">
+
+            <div class="pb-20">
+                <div class="p-8">
+                    <a href="./">
+                        <img src="./images/logo-PSC.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="h-12">
+
+                <a class="transition duration-300  hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg  "
+                    href="./user">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-2 h-2 md:w-4 md:h-4">
+                        <path fill="#ffffff"
+                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                    </svg>
+                    User
+                </a>
+            </div>
+            <div class="h-12">
+
+                <a class="transition duration-300 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg"
+                    href="./criticalPart">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-2 h-2 md:w-4 md:h-4">
+                        <path fill="#ffffff"
+                            d="M64 0C28.7 0 0 28.7 0 64V416c0 35.3 28.7 64 64 64H80l16 32h64l16-32H400l16 32h64l16-32h16c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM224 320a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-240a160 160 0 1 1 0 320 160 160 0 1 1 0-320zM480 221.3V336c0 8.8-7.2 16-16 16s-16-7.2-16-16V221.3c-18.6-6.6-32-24.4-32-45.3c0-26.5 21.5-48 48-48s48 21.5 48 48c0 20.9-13.4 38.7-32 45.3z" />
+                    </svg>
+                    Critical Part
+                </a>
+            </div>
+            <div class="h-12">
+
+                <a class="transition duration-300 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg"
+                    href="./excel">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-2 h-2 md:w-4 md:h-4">
+                        <path fill="#ffffff"
+                            d="M64 0C28.7 0 0 28.7 0 64V416c0 35.3 28.7 64 64 64H80l16 32h64l16-32H400l16 32h64l16-32h16c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM224 320a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-240a160 160 0 1 1 0 320 160 160 0 1 1 0-320zM480 221.3V336c0 8.8-7.2 16-16 16s-16-7.2-16-16V221.3c-18.6-6.6-32-24.4-32-45.3c0-26.5 21.5-48 48-48s48 21.5 48 48c0 20.9-13.4 38.7-32 45.3z" />
+                    </svg>
+                    User Add
+                </a>
+            </div>
+            <div class="h-16">
+                <a class="transition duration-500 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg"
+                    href="./permintaan">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-2 h-2 md:w-4 md:h-4">
+                        <path fill="#ffffff"
+                            d="M64 0C28.7 0 0 28.7 0 64V416c0 35.3 28.7 64 64 64H80l16 32h64l16-32H400l16 32h64l16-32h16c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM224 320a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-240a160 160 0 1 1 0 320 160 160 0 1 1 0-320zM480 221.3V336c0 8.8-7.2 16-16 16s-16-7.2-16-16V221.3c-18.6-6.6-32-24.4-32-45.3c0-26.5 21.5-48 48-48s48 21.5 48 48c0 20.9-13.4 38.7-32 45.3z" />
+                    </svg>
+                    CriticalPartAdd
+                </a>
+            </div>
+            <div class="h-16">
+                <div id="px-4 w-full">
+                    <button
+                        class="px-12 w-full transition-all ease-out  duration-300 hover:border-purple-600 hover:bg-violet-700  py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent hover:rounded-lg"
+                        onclick="handleBarang()">Barang</button>
+                    <div onclick="handleBarang()" id="Barang"
+                        class="pl-12  transition-all duration-300 ease-in-out hidden">
+                        <div class="flex flex-col">
+                            <a class="transition-transform  duration-150 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg"
+                                href="barang">List barang</a>
+                            <a class="transition-transform  duration-150 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg"
+                                href="addBarang">Add Barang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="  ">
+
+
+                <form action="logout" method="post">
+                    <button type="submit"
+                        class=" bottom-0  transition-all  duration-300 hover:border-purple-600 hover:bg-violet-700 ease-in py-2 flex gap-2 md:gap-4 hover:border-2 border-2 border-transparent px-2  hover:rounded-lg align-bottom fixed  px-1- natch">logout</button>
+                </form>
+            </div>
+        </div>
+        </div>
+
+    </nav>
+
+    <main class="md:col-span-5  ">
+        <%- body %>
+    </main>
+
+</body>
+
+</html>
+<script>
+    let hide = true
+
+    function handleBarang() {
+        const menuBarang = document.getElementById('Barang')
+
+        menuBarang.classList.toggle('hidden')
+        menuBarang.classList.toggle('block')
+    }
+</script>

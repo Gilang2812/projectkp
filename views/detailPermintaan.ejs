@@ -1,0 +1,302 @@
+<div id="status"
+        class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 "
+        hidden></div>
+
+<div class="container px-28 min-w-fit py-12 ">
+        <div class="py-12">
+                <h1 class="text-4xl text-[#605c5c] font-bold"> Tambah Critical Part</h1>
+        </div>
+        <form action="./excelPermintaan" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+                <span>Belum Ada Template? <a class="text-blue-700 hover:text-fuchsia-600"
+                                href="./files/criticalPart.xlsx">Donwload File </a></span>
+
+                <div class="relative mt-4">
+                        <input type="file" name="excelFile" id="excelFile" accept=".xlsx" class="hidden"
+                                onchange="displayFileName(this)">
+                        <label for="excelFile"
+                                class="cursor-pointer bg-gradient-to-b from-stone-500 to-slate-600 shadow-md shadow-gray-500 text-white py-2 px-4 rounded-md inline-block">
+                                Pilih File Excel
+                        </label>
+                        <span id="fileName" class="ml-2 text-gray-600">
+                                Belum ada file dipilih
+                        </span>
+                </div>
+
+
+
+                <div class="py-2 text-white font-bold">
+                        <input class="bg-gradient-to-br shadow-md shadow-green-700 from-lime-500 to-teal-600  px-4 py-2 rounded-lg cursor-pointer"
+                                type="submit" name="submit" id="submit" value="Open">
+                </div>
+        </form>
+
+        <hr>
+
+        <% if (locals.data) { %>
+        <form action="/addPermintaan" method="post">
+                <div class="py-2 w-full flex justify-start">
+                        <div class="">
+                                <button onclick="return isSubmitData()"
+                                        class="  bg-gradient-to-b from-blue-400 to-sky-700 py-1 px-3 rounded-xl shadow-sm shadow-orange-300  text-white text-center cursor-pointer font-bold text-lg"
+                                        type="submit">
+                                        +
+                                        Submit
+
+                                </button>
+                        </div>
+                </div>
+                <div class="py-4 font-bold">
+                        <label for="tahun">Tahun</label>
+                        <select name="tahun" id="tahun">
+                                <% 
+                                // Mendapatkan tahun saat ini
+                                var currentYear = new Date().getFullYear();
+                    
+                                // Loop untuk 50 tahun sebelumnya sampai 50 tahun sesudahnya
+                                for (var year = currentYear - 50; year <= currentYear + 50; year++) {
+                            %>
+                                <option value="<%= year %>" <% if (year === currentYear) { %>selected<% } %>><%= year %>
+                                </option>
+                                <% 
+                                }
+                            %>
+                        </select>
+                </div>
+
+                <div class="text-4xl text-[#605c5c] font-bold">
+                        <h1>list Kandidate User</h1>
+                </div>
+                <div class=" rounded-xl py-2 my-5 w-full  bg-slate-400 shadow-lg ">
+
+                        <table class="min-w-full border-collapse ">
+                                <thead class="bg-slate-400 py-2 text-white">
+                                        <tr>
+                                                <th class="w-16 px-2">No</th>
+                                                <th class="py-4 ">material master </th>
+                                                <th class="px-4">deskripsion</th>
+                                                <th class="px-4">kategori</th>
+                                                <th class="px-4">jenis</th>
+                                                <th class="px-4 w-fit">mrp</th>
+                                                <th class="px-4 w-fit">ON HAND</th>
+                                                <th class="px-4">ON PR</th>
+                                                <th class="px-4">ON PO</th>
+                                                <th class="px-4">User</th>
+                                                <th class="px-4">uom</th>
+                                                <th class="px-4">unit</th>
+                                                <th class="px-4">total_price</th>
+                                                <th class="px-4">total_price_year</th>
+                                                <th class="px-4">quantity</th>
+                                                <th class="px-2">Jan</th>
+                                                <th class="px-2">Feb</th>
+                                                <th class="px-2">Mar</th>
+                                                <th class="px-2">Apr</th>
+                                                <th class="px-2">Mei</th>
+                                                <th class="px-2">Jun</th>
+                                                <th class="px-2">Jul</th>
+                                                <th class="px-2">Ags</th>
+                                                <th class="px-2">Sep</th>
+                                                <th class="px-2">Okt</th>
+                                                <th class="px-2">Nov</th>
+                                                <th class="px-2">Des</th>
+                                                <th class="px-2">total</th>
+                                                <th class="px-2">column</th>
+                                                <th class="mx-4">ket</th>
+                                        </tr>
+                                </thead>
+                                <tbody id="bodyCritical" class="bg-white">
+                                        <% data.forEach((data,index) => { %>
+                                        <tr class=" text-center even:bg-white odd:bg-slate-200 hover:bg-gray-200">
+                                                <td> <input class="w-full text-center bg-transparent" type="text"
+                                                                name="" value=<%=  index+1 %>>
+                                                </td>
+                                                <td><input class="min-w-fit text-center bg-transparent" type="text"
+                                                                name="material_master"
+                                                                value="<%= data.material_master %>"></td>
+                                                <td><input class="min-w-fit text-center bg-transparent" type="text"
+                                                                name="deskripsi" value="<%=  data.deskripsi %>"></td>
+                                                <td><input class="min-w-fit text-center bg-transparent" type="text"
+                                                                name="kategori" value="<%= data.kategori %>">
+                                                </td>
+                                                <td><input class="min-w-fit text-center bg-transparent" type="text"
+                                                                name="jenis" value="<%= data.jenis %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="mrp" value="<%= data.mrp %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="on_hand" value="<%= data.on_hand %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="on_pr" value="<%= data.on_pr %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="on_po" value="<%= data.on_po %>">
+                                                </td>
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="user" value="<%= data.user %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="uom" value="<%= data.uom %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="unit" value="<%= data.unit %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="total_price" value="<%= data.total_price %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="total_price_year"
+                                                                value="<%= data.total_price_year %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="quantity" value="<%= data.quantity %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="jan" value="<%= data.jan %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="feb" value="<%= data.feb %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="mar" value="<%= data.mar %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="apr" value="<%= data.apr %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="mei" value="<%= data.may %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="jun" value="<%= data.jun %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="jul" value="<%= data.jul %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="aug" value="<%= data.aug %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="sep" value="<%= data.sep %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="oct" value="<%= data.oct %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="nov" value="<%= data.nov %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="des" value="<%= data.dec %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="total" value="<%= data.total %>">
+                                                </td>
+                                                <td><input class="w-full text-center bg-transparent" type="text"
+                                                                name="colum1" value="<%= data.colum1 %>">
+                                                </td>
+                                                <td><input class="min-w-fit text-center bg-transparent" type="text"
+                                                                name="ket" value="<%= data.ket %>">
+                                                </td>
+
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                        </table>
+                </div>
+                <button onclick="handleRow()" type="button"
+                        class="px-2 my-2  bg-amber-50 text-amber-800 font-extrabold border-2 hover:bg-amber-300  rounded-lg border-amber-800">+</button>
+
+        </form>
+        <% } %>
+</div>
+<script>
+        function validateForm() {
+                var excelFile = document.getElementById("excelFile");
+                if (excelFile.files.length === 0) {
+                        const error = document.createElement('p');
+                        error.innerText = 'Pilih file terlebih dahulu.';
+                        const status = document.getElementById('status')
+                        status.hidden = false;
+                        status.appendChild(error)
+                        return false;
+                }
+
+                return true;
+        }
+
+        function displayFileName(input) {
+                const fileNameElement = document.getElementById('fileName');
+                const fileName = input.files[0].name;
+                fileNameElement.innerHTML = `<i class="far fa-file-excel mr-2"></i>${fileName}`;
+
+                if (isValidFile(fileName)) {
+                        fileNameElement.innerHTML = `<i class="far fa-file-excel mr-2"></i>${fileName}`;
+                } else {
+                        fileNameElement.innerHTML = 'File tidak valid. Harap pilih file .xlsx.';
+                        // Reset the input field
+                        input.value = '';
+                }
+        }
+
+        function isValidFile(fileName) {
+                const allowedExtensions = ['.xlsx'];
+                const fileExtension = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+                return allowedExtensions.includes('.' + fileExtension);
+        }
+
+        function isSubmitData() {
+                if (window.confirm('Apakah Anda yakin menambahkan data?')) {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+
+        function handleRow() {
+                const tableBody = document.getElementById('bodyCritical')
+                const lastRow = tableBody.lastElementChild;
+
+                const lastRowNumberInput = lastRow.querySelector('td:first-child input');
+
+                // Mendapatkan nomor terakhir
+                const lastNumber = parseInt(lastRowNumberInput.value);
+
+                const row = document.createElement('tr')
+                row.classList = `text-center even:bg-white odd:bg-slate-200 hover:bg-gray-200`
+                row.innerHTML = `
+                <td><input class="w-full text-center bg-transparent" type="text" name="" value="${lastNumber + 1}"></td>
+                                <td><input class="min-w-fit text-center bg-transparent" type="text" name="material_master" value="" required></td>
+                                <td><input class="min-w-fit text-center bg-transparent" type="text" name="deskripsi" value="" required></td>
+                                <td><input class="min-w-fit text-center bg-transparent" type="text" name="kategori" value="" required></td>
+                                <td><input class="min-w-fit text-center bg-transparent" type="text" name="jenis" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="mrp" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="on_hand" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="on_pr" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="on_po" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="user" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="uom" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="unit" value="" required></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="total_price" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="total_price_year" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="quantity" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="jan" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="feb" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="mar" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="apr" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="mei" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="jun" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="jul" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="aug" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="sep" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="oct" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="nov" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="des" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="total" value=""></td>
+                                <td><input class="w-full text-center bg-transparent" type="text" name="colum1" value=""></td>
+                                <td><input class="min-w-fit text-center bg-transparent" type="text" name="ket" value=""></td>
+                                `
+                tableBody.appendChild(row)
+
+        }
+</script>
