@@ -29,7 +29,7 @@ const User   = sequelize.define('User',{
         type:DataTypes.INTEGER,
     }
 },{
-    tableName:'User',
+    tableName:'user',
     timestamps:true,
     createdAt:'created_at',
     updatedAt:'updated_at'

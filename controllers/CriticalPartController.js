@@ -16,7 +16,7 @@ const getUserTable = async (req, res) => {
         const userData = getExcel(req)
         console.log(userData);
  
-        res.render('excel',{data:userData})
+        res.render('./User/excel',{data:userData})
         
     } catch (error) {
         console.log(error);
@@ -246,17 +246,6 @@ const getTableBody = async (req, res) => {
 
 
 
-const getDataExcel = async (req,res) =>{
-    try {
-        res.render('excel',{title: 'Excel', layout:'layout'})
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json("Internal Excel error: " + error.message);
-    }
-}
-
-
 const test = async (req, res) => {
     try {
         const details = await DetailPemintaanCriticalPart.findAll({
@@ -348,6 +337,6 @@ function getMonthName(monthNumber) {
 
 
 
-module.exports = { getUserTable,getCriticalPart,getDataExcel,getTableBody,test };
+module.exports = { getUserTable,getCriticalPart,getTableBody,test };
 
 

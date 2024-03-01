@@ -32,12 +32,10 @@
                         <% } %>
 
                         <td><%= user.isadmin %></td>
-                        <td class="p-2 text-white jus">
+                        <td class="p-2 w-30 text-white jus">
                             <div class="flex justify-evenly">
-                                <button
-                                    class="transition-all duration-500 ease-linear py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br hover:bg-gradient-to-r from-red-500 to-rose-600 active:from-red-700 active:to-rose-950  hover:from-red-400 hover:to-rose-600  rounded-xl">Delete</button>
-                                <button
-                                    class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</button>
+                            <a
+                                 href="./user/<%= user.id_user %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
                             </div>
                         </td>
                     </tr>

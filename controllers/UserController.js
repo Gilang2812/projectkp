@@ -38,7 +38,7 @@ const getAllUsers = async (req, res) => {
         const totalCount = await User.count(); 
         const totalPages = Math.ceil(totalCount / pageSize);
         
-        res.status(200).render('user', {
+        res.status(200).render('./User/user', {
             title: 'Express',
             layout: 'layout',
             data: users,
@@ -53,6 +53,17 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+const editUser = async (req,res)=>{
+    try {
+        const {id_user} = req.params
+        const existingUser = await User.findOne({where:{id_user}})
+        
+        res.render('User/editUser',{data:existingUser, layout:'layout'})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("Internal server error, " + error.message);
+    }
+}
 
 const updateUser = async (req, res) => {
     const { username, password, id_unit } = req.body;
@@ -83,16 +94,16 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    const userId = req.params.id_user;
+    const {id_user} = req.params;
 
     try {
-        const existingUser = await User.findByPk(userId);
+        const existingUser = await User.findOne({where:{id_user}});
 
-        if (!existingUser) {
-            return res.status(404).json({ error: 'User not found' });
+        if (existingUser.isadmin =1 || existingUser.isadmin===req.user.user.isadmin) {
+            return res.status(400).json({ error: 'User tidak bisa di hapus' });
         }
 
-        await User.destroy({ where: { id_user: userId } });
+        await User.destroy({ where: { id_user: id_user } });
         res.status(204).end();
     } catch (error) {
         console.error(error);
@@ -121,5 +132,6 @@ module.exports = {
     getAllUsers,
     updateUser,
     deleteUser,
-    profile
+    profile,
+    editUser
 };
