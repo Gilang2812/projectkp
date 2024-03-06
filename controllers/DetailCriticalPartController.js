@@ -7,14 +7,19 @@ const {
   Barang,
   DetailPemintaanCriticalPart,
   Unit,
-  Plant
+  Plant 
 } = require('../models/relation')
 const { getExcel } = require('./BarangController')
 
 const getDetailPermintaan = async (req, res) => {
   try {
-    res.render('detailPermintaan', { layout: 'layout' })
-  } catch (error) {}
+    const barangs = await Barang.findAll()
+    const  units = await Unit.findAll()
+    res.render('detailPermintaan', { layout: 'layout',barangs,units })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json('Internal Excel error: ' + error.message)
+  }
 }
 const getCriticalPart = async (req, res) => {
   try {
@@ -357,9 +362,54 @@ const getPermintaanExcel = async (req, res) => {
   }
 }
 
+const createPermintaanForm = async (req, res) => {
+  try {
+    let {
+      material_master,
+      id_unit,
+      tahunData,
+      jan,
+      feb,
+      mar,
+      apr,
+      mei,
+      jun,
+      jul,
+      ags,
+      sep,
+      okt,
+      nov,
+      des
+    } = req.body
+    jan = jan || 0
+    feb = feb || 0
+    mar = mar || 0
+    apr = apr || 0
+    mei = mei || 0
+    jun = jun || 0
+    jul = jul || 0
+    ags = ags || 0
+    sep = sep || 0
+    okt = okt || 0
+    nov = nov || 0
+    des = des || 0
+
+    const existingPermintaan = await DetailPemintaanCriticalPart.findOne({where:{tahun:tahunData,material_master,id_unit}})
+    if(existingPermintaan){
+      return res.json("data sudah ada")
+    }
+    await DetailPemintaanCriticalPart.create({tahun:tahunData,material_master,id_unit,jan,feb,mar,apr,mei,jun,jul,aug:ags,sep,oct:okt,nov,des})
+    res.redirect('/criticalPart')
+  } catch (error) {
+    console.error(error)
+    res.status(500).json('Internal server error, ' + error.message)
+  }
+}
+
 module.exports = {
   createCriticalPart,
   getDetailPermintaan,
   getCriticalPart,
-  getPermintaanExcel
+  getPermintaanExcel,
+  createPermintaanForm
 }

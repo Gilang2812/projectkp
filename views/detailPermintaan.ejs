@@ -7,8 +7,10 @@
         <div class="py-12">
                 <h1 class="text-4xl text-[#605c5c] font-bold"> Tambah Critical Part</h1>
         </div>
-        <form action="./excelPermintaan" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-
+        <form  id="formExcel" action="./excelPermintaan" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <div class="py-8 text-white">
+                        <p onclick="openExcel()" class="border-amber-700 border-2 shadow-md shadow-slate-100 px-4 py-1 w-fit rounded-full text-amber-700  cursor-pointer ">Input with Form</p>
+                    </div>
                 <span>Belum Ada Template? <a class="text-blue-700 hover:text-fuchsia-600"
                                 href="./files/criticalPart.xlsx">Donwload File </a></span>
 
@@ -51,11 +53,8 @@
                         <label for="tahun">Tahun</label>
                         <select name="tahun" id="tahun">
                                 <% 
-                                // Mendapatkan tahun saat ini
                                 var currentYear = new Date().getFullYear();
-                    
-                                // Loop untuk 50 tahun sebelumnya sampai 50 tahun sesudahnya
-                                for (var year = currentYear - 50; year <= currentYear + 50; year++) {
+                                for (var year = currentYear - 10; year <= currentYear + 10; year++) {
                             %>
                                 <option value="<%= year %>" <% if (year === currentYear) { %>selected<% } %>><%= year %>
                                 </option>
@@ -210,10 +209,102 @@
 
         </form>
         <% } %>
+        <div>
+                <form class="hidden" action="addPermintaanForm" method="post" id="formInput">
+                    <div class="py-8 text-white">
+                        <p onclick="openForm()" class="border-amber-700 border-2 shadow-md shadow-slate-100 px-4 py-1 w-fit rounded-full text-amber-700  cursor-pointer ">Input with Excel</p>
+                    </div>
+                    <div class="w-96">
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class= "text-amber-800 " for="username">tahun</label>
+                            <select class="px-4 py-2 rounded-full border-2" name="tahunData" >
+                                <% 
+                                var currentYear = new Date().getFullYear();
+                                for (var year = currentYear - 5; year <= currentYear + 5; year++) {
+                            %>
+                                <option value="<%= year %>" <% if (year === currentYear) { %>selected<% } %>><%= year %>
+                                </option>
+                                <% 
+                                }
+                            %>
+                        </select></div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="text-amber-800 " for="material_">Barang</label>
+                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4"  name="material_master" id="material_master">
+                                <% barangs.forEach(barang => { %>
+                                 <option value="<%= barang.material_master%>"><div>
+                                        <%= barang.deskripsi %>
+                                 </div>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="text-amber-800 " for="id_unit">Unit / User</label>
+                        <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4"  name="id_unit" id="id_unit">
+                          <% units.forEach(unit => { %>
+                                <option value="<%= unit.id_unit %>"><%= unit.unit %></option>
+                          <% }) %>
+                        </select>
+                        </div>
+                        <div class="py-4 grid grid-cols-4 gap-4">
         
+                                <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="jan" placeholder="jan" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="feb" placeholder="feb" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="mar" placeholder="mar" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="apr" placeholder="apr" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="mei" placeholder="mei" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="jun" placeholder="jun" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="jul" placeholder="jul" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="ags" placeholder="ags" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="sep" placeholder="sep" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="okt" placeholder="okt" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="nov" placeholder="nov" >
+                                      </div>
+                                      <div>
+                                        <input type="number" class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase" name="des" placeholder="des" >
+                                      </div>
+                        <div class="py-3">
+                            <input type="submit" class=" px-4 py-2 rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white " value="Submit">
+                            </div>
+                        
+                    </div>
+                </form>
+            </div>
 </div>
 </div>
 <script>
+            function openForm(){
+         
+         document.getElementById('formInput').classList = 'hidden'
+         document.getElementById('formExcel').classList='visible'
+     }
+    function openExcel(){
+         
+         document.getElementById('formInput').classList = 'visible'
+         document.getElementById('formExcel').classList='hidden'
+     }
         function validateForm() {
                 var excelFile = document.getElementById("excelFile");
                 if (excelFile.files.length === 0) {

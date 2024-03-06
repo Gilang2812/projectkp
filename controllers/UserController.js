@@ -1,4 +1,5 @@
 const {User} = require("../models/relation");
+const { getExcel } = require("./BarangController");
 
 const getUserTable = async (req, res) => {
     try {

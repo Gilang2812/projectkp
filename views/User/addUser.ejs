@@ -8,7 +8,7 @@
     </div>
 
     <hr>
-    <form class="hidden " id="formExcel" action="/excelUser" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form  id="formExcel" action="/excelUser" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div class="py-8 text-white">
             <p onclick="openExcel()" class="border-amber-700 border-2 shadow-md shadow-slate-100 px-4 py-1 w-fit rounded-full text-amber-700  cursor-pointer ">Input with Form</p>
         </div>
@@ -96,7 +96,7 @@
         </form>
         <% } %>
             <div>
-                <form action="addUser" method="post" id="formInput">
+                <form class="hidden" action="addUser" method="post" id="formInput">
                     <div class="py-8 text-white">
                         <p onclick="openForm()" class="border-amber-700 border-2 shadow-md shadow-slate-100 px-4 py-1 w-fit rounded-full text-amber-700  cursor-pointer ">Input with Excel</p>
                     </div>
@@ -170,12 +170,12 @@
 
     function openForm(){
          
-         document.getElementById('formInput').hidden = true
+         document.getElementById('formInput').classList = 'hidden'
          document.getElementById('formExcel').classList='visible'
      }
     function openExcel(){
          
-         document.getElementById('formInput').hidden = false
+         document.getElementById('formInput').classList = 'visible'
          document.getElementById('formExcel').classList='hidden'
      }
 </script>

@@ -1,0 +1,164 @@
+<% if (locals.error) { %>
+    <div id="status"
+        class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 ">
+        <h1>
+            <%= error %>
+        </h1>
+    </div>
+    <% } %>
+        <div class="container px-28 py-8">
+            <div class="py-12">
+                <h1 class="text-4xl text-[#605c5c] font-bold"> Edit Barang</h1>
+
+            </div>
+            <hr>
+            <div>
+                <form action="./<%= data.material_master %>/update" method="post" id="formInput">
+                    <div class="w-96">
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="material_master">material_master</label>
+                            <input type="text" name="material_master" id="material_master"
+                                value="<%= data.material_master %> "
+                                class="w-full bg-slate-200  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                                readonly>
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="deskripsi">deskripsi</label>
+                            <input type="text" name="deskripsi" id="deskripsi" value="<%= data.deskripsi %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="harga">harga</label>
+                            <input type="text" name="harga" id="harga" value="<%= data.harga %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="on_hand">on hand</label>
+                            <input type="text" name="on_hand" id="on_hand" value="<%= data.on_hand %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="on_po">on po</label>
+                            <input type="text" name="on_po" id="on_po" value="<%= data.on_po %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="on_proccess">on proses</label>
+                            <input type="text" name="on_proccess" id="on_proccess" value="<%= data.on_proccess %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class="" for="ket">Keterangan</label>
+                            <input type="text" name="ket" id="ket" value="<%= data.ket %>"
+                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                        </div>
+
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class=""> mrp </label>
+                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="mrp" id="mrp">
+                                <option value="<%= data.Mrp.id_mrp %>">
+                                    <%= data.Mrp.mrp %>
+                                </option>
+                                <% mrp.forEach(mrp=> { %>
+                                    <% if (data.Mrp.id_mrp !=mrp.id_mrp) { %>
+                                        <option value="<%= mrp.id_mrp %>">
+                                            <%= mrp.mrp %>
+                                        </option>
+                                        <% } %>
+                                            <% }) %>
+
+
+                            </select>
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class=""> uom </label>
+                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="uom" id="uom">
+                                <option value="<%= data.Uom.id_uom %>">
+                                    <%= data.Uom.uom %>
+                                </option>
+                                <% uom.forEach(uom=> { %>
+                                    <% if (data.Uom.id_uom !=uom.id_uom) { %>
+                                        <option value="<%= uom.id_uom %>">
+                                            <%= uom.uom %>
+                                        </option>
+                                        <% } %>
+                                            <% }) %>
+
+
+                            </select>
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class=""> kategori </label>
+                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="kategori"
+                                id="kategori">
+                                <option value="<%= data.Kategori.id_kategori %>">
+                                    <%= data.Kategori.kategori %>
+                                </option>
+                                <% kategori.forEach(kategori=> { %>
+                                    <% if (data.Kategori.id_kategori !=kategori.id_kategori) { %>
+                                        <option value="<%= kategori.id_kategori %>">
+                                            <%= kategori.kategori %>
+                                        </option>
+                                        <% } %>
+                                            <% }) %>
+
+
+                            </select>
+                        </div>
+                        <div class="flex-col flex gap-2 py-2">
+                            <label class=""> jenis </label>
+                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="jenis"
+                                id="jenis">
+                                <option value="<%= data.Jeni.id_jenis %>">
+                                    <%= data.Jeni.jenis %>
+                                </option>
+                                <% jenis.forEach(jenis=> { %>
+                                    <% if (data.Jeni.id_jenis !=jenis.id_jenis) { %>
+                                        <option value="<%= jenis.id_jenis %>">
+                                            <%= jenis.jenis %>
+                                        </option>
+                                        <% } %>
+                                            <% }) %>
+
+
+                            </select>
+                        </div>
+                        <div class="py-3 flex">
+                            <input type="submit"
+                                class="cursor-pointer px-4 py-1  rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
+                                value="Save">
+                </form>
+                <form action="./<%= data.material_master %>/delete" method="post">
+                    <input type="submit"
+                        class="cursor-pointer px-3 py-1 mx-8 rounded-3xl bg-gradient-to-t  border-2 text-amber-700  border-amber-700 "
+                        value="Delete">
+                </form>
+            </div>
+        </div>
+
+        </div>
+        </div>
+        <script>
+            function validateForm() {
+                var excelFile = document.getElementById("excelFile");
+                if (excelFile.files.length === 0) {
+                    const error = document.createElement('p');
+                    error.innerText = 'Pilih file terlebih dahulu.';
+                    const status = document.getElementById('status')
+                    status.hidden = false;
+                    status.appendChild(error)
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isSubmitData() {
+                if (window.confirm('Apakah Anda yakin menyimpan perubahan?')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        </script>

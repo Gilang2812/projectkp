@@ -1,7 +1,7 @@
 var express = require('express');
 const { getAllUnit, formUnit, createUnit, deleteUnit, editUnit } = require('../controllers/UnitController');
 const { getAllUsers,getUserTable, createUser, editUser, createUserForm, deleteUser, updateUser } = require('../controllers/UserController');
-const {getCriticalPart, getDetailPermintaan, getPermintaanExcel, createCriticalPart } = require('../controllers/DetailCriticalPartController');
+const {getCriticalPart, getDetailPermintaan, getPermintaanExcel, createCriticalPart, createPermintaanForm } = require('../controllers/DetailCriticalPartController');
 const multer = require('multer');
 const { getAllBarng, getExcelBarang, AddBarang, createBarang, editBarang, updateBarang, deleteBarang } = require('../controllers/BarangController');
 const { formLogin, login, logout } = require('../controllers/AuthController');
@@ -32,6 +32,7 @@ router.post('/unit/:id_unit/delete',deleteUnit)
 
 router.get('/criticalPart',getCriticalPart)
 router.get('/permintaan',getDetailPermintaan)
+router.post('/addPermintaanForm',createPermintaanForm)
 
 router.get('/user',getAllUsers)
 router.get('/addUser',(req,res)=>{res.render('./User/addUser',{ layout:'layout'})})
