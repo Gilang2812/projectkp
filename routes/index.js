@@ -1,12 +1,16 @@
 var express = require('express');
 const { getAllUnit, formUnit, createUnit, deleteUnit, editUnit } = require('../controllers/UnitController');
-const { getAllUsers, createUser, editUser, createUserForm, deleteUser, updateUser } = require('../controllers/UserController');
-const { getUserTable, getCriticalPart, getTableBody, test } = require('../controllers/CriticalPartController');
-const { getDetailPermintaan, getPermintaanExcel, createCriticalPart } = require('../controllers/DetailCriticalPartController');
+const { getAllUsers,getUserTable, createUser, editUser, createUserForm, deleteUser, updateUser } = require('../controllers/UserController');
+const {getCriticalPart, getDetailPermintaan, getPermintaanExcel, createCriticalPart } = require('../controllers/DetailCriticalPartController');
 const multer = require('multer');
 const { getAllBarng, getExcelBarang, AddBarang, createBarang, editBarang, updateBarang, deleteBarang } = require('../controllers/BarangController');
 const { formLogin, login, logout } = require('../controllers/AuthController');
 const { authenticateToken } = require('../controllers/middleware');
+const { getAllJenis, createJenis, editJenis, updateJenis, deleteJenis } = require('../controllers/JenisController');
+const { updateKategori, deleteKategori, editKategori, createKategori, getAllKategori } = require('../controllers/KategoriController');
+const { getAllMrp, createMrp, editMrp, updateMrp, deleteMrp } = require('../controllers/MrpController');
+const { getAllUOM, createUOM, editUOM, updateUOM, deleteUOM } = require('../controllers/UomController');
+const { getAllPlant, createPlant, editPlant, updatePlant, deletePlant } = require('../controllers/PlantController');
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
 
@@ -38,7 +42,6 @@ router.post('/user/:id_user/update',updateUser)
 router.post('/user/:id_user/delete',deleteUser)
 
 router.post('/addPermintaan',createCriticalPart)
-router.get('/test',test)
 
 router.get('/barang',getAllBarng)
 router.get('/addBarang',AddBarang)
@@ -48,7 +51,40 @@ router.post('/barang/:material_master/delete',deleteBarang)
 router.post('/addBarang',createBarang)
 router.post('/logout',logout)
 
+router.get('/jenis',getAllJenis)
+router.get('/addJenis',(req,res)=>{res.render('Jenis/addJenis')})
+router.post('/addJenis',createJenis)
+router.get('/jenis/:id_jenis',editJenis)
+router.post('/jenis/:id_jenis/update',updateJenis)
+router.post('/jenis/:id_jenis/delete',deleteJenis)
 
+router.get('/kategori',getAllKategori)
+router.get('/addKategori',(req,res)=>{res.render('Kategori/addKategori')})
+router.post('/addKategori',createKategori)
+router.get('/kategori/:id_kategori',editKategori)
+router.post('/kategori/:id_kategori/update',updateKategori)
+router.post('/kategori/:id_kategori/delete',deleteKategori)
+
+router.get('/mrp',getAllMrp)
+router.get('/addmrp',(req,res)=>{res.render('mrp/addMrp')})
+router.post('/addmrp',createMrp)
+router.get('/mrp/:id_mrp',editMrp)
+router.post('/mrp/:id_mrp/update',updateMrp)
+router.post('/mrp/:id_mrp/delete',deleteMrp)
+
+router.get('/uom',getAllUOM)
+router.get('/adduom',(req,res)=>{res.render('uom/addUom')})
+router.post('/adduom',createUOM)
+router.get('/uom/:id_uom',editUOM)
+router.post('/uom/:id_uom/update',updateUOM)
+router.post('/uom/:id_uom/delete',deleteUOM)
+
+router.get('/plant',getAllPlant)
+router.get('/addplant',(req,res)=>{res.render('plant/addplant')})
+router.post('/addplant',createPlant)
+router.get('/plant/:id_plant',editPlant)
+router.post('/plant/:id_plant/update',updatePlant)
+router.post('/plant/:id_plant/delete',deletePlant)
 
 
 router.use(upload.single('excelFile'))

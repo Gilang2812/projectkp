@@ -1,5 +1,17 @@
 const {User} = require("../models/relation");
 
+const getUserTable = async (req, res) => {
+    try {
+        const userData = getExcel(req)
+        console.log(userData);
+ 
+        res.render('./User/addUser',{data:userData})
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Internal Excel error: " + error.message);
+    }   
+}
 const createUser = async (req, res) => {
     try {
         const dataYangDidapat = req.body;
@@ -135,6 +147,7 @@ const profile = async (req, res) => {
     }
 };
 module.exports = {
+    getUserTable,
     createUserForm,
     createUser,
     getAllUsers,

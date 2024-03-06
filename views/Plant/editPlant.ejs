@@ -1,0 +1,58 @@
+<div id="status"
+    class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 "
+    hidden></div>
+<div class="container px-28 py-8">
+    <div class="bg-white p-4 rounded-2xl h-screen  w-full">
+        <div class="py-12">
+            <h1 class="text-4xl text-[#605c5c] font-bold"> Edit Plant</h1>
+
+        </div>
+
+        <hr>
+
+
+
+        <div>
+
+            <form action="./<%= data.id_plant %>/update" method="post" id="formInput">
+                <div class="w-96">
+                    <div class="flex-col flex gap-2 py-2">
+                        <label class="" for="id_plant">Id Plant</label>
+                        <input type="text" name="id_plant" id="id_plant" value="<%= data.id_plant %> "
+                            class="w-full bg-slate-200  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                            readonly>
+                    </div>
+                    <div class="flex-col flex gap-2 py-2">
+                        <label class="" for="plant">plant</label>
+                        <input type="plant" name="plant" id="plant" value="<%= data.plant %>"
+                            class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                    </div>
+                    <div class="py-3 flex">
+                        <input onclick="return isSubmitData()" type="submit"
+                            class="cursor-pointer px-4 py-1  rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
+                            value="Save">
+            </form>
+            <form action="./<%= data.id_plant %>/delete" method="post">
+                <input type="submit"
+                    class="cursor-pointer px-3 py-1 mx-8 rounded-3xl bg-gradient-to-t  border-2 text-amber-700  border-amber-700 "
+                    value="Delete">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+
+
+
+
+    function isSubmitData() {
+        if (window.confirm('Apakah Anda yakin menyimpan perubahan ?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>
