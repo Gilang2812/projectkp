@@ -4,8 +4,7 @@ const secretKey = 'yourSecretKey'; // Ganti dengan kunci rahasia yang kuat
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token){
-    console.log(token)
-    return res.redirect('/login');
+    return res.status(403).redirect('/login');
     
   }
 

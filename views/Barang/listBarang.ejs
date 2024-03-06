@@ -1,3 +1,8 @@
+<% if (locals.error) { %>
+    <div id="status"
+    class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 "
+    ><h1><%= error %></h1></div>
+    <% } %>
 <section class="lg:p-12  p-4 md:p-22 ">
     <div class="bg-white p-4 rounded-2xl h-screen  w-full">
 
@@ -38,7 +43,7 @@
                             <th>Mrp</th>
                             <th>Uom</th>
                             <th>Ket</th>
-                            <!-- <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -59,14 +64,15 @@
                             <td><%= barang.Uom.uom %></td>
                             <td><%= barang.ket %></td>
 
-                            <!-- <td class="p-2 text-white jus">
+                            <td class="p-2 w-30 text-white jus">
                                 <div class="flex justify-evenly">
-                                    <button
-                                        class="transition-all duration-500 ease-linear py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br hover:bg-gradient-to-r from-red-500 to-rose-600 active:from-red-700 active:to-rose-950  hover:from-red-400 hover:to-rose-600  rounded-xl">Delete</button>
-                                    <button
-                                        class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</button>
-                                </div>
-                            </td> -->
+                                <a
+                                     href="./barang/<%= barang.material_master %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
+                               <form action="./barang/<%= barang.material_master %>/delete" method="post">
+                                <button onclick="return isDelete()" class="border-2 border-amber-600 bg-slate-100 text-amber-600 font-semibold rounded-full px-2 py-1 hover:bg-gray-50 hover:border-amber-800 hover:text-amber-800" type="submit">Delete</button>
+                               </form>
+                                    </div>
+                            </td>
                         </tr>
                         <% }) %>
                     </tbody>
@@ -123,4 +129,11 @@
         });
     });
 
+    const isDelete = ()=>{
+        if(window.confirm("apakah anda yakin ingin mengahpus data ini")){
+            return true 
+        }else{
+            return false
+        }
+    }
 </script>

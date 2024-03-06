@@ -1,0 +1,35 @@
+<section class="container px-28 py-8">
+    <div class="bg-white p-4 rounded-2xl h-screen  w-full">
+        <div class="py-12">
+            <h1 class="text-4xl text-[#605c5c] font-bold"> Tambah Unit</h1>
+
+        </div>
+        <div>
+            <form action="addUnit" method="post" id="formInput">
+                <div class="w-96">
+                    <div class="flex-col flex gap-2 py-2">
+                        <label class="text-amber-800" for="unit">Unit name</label>
+                        <input type="text" name="unit" id="unit" value=""
+                            class="w-full  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3">
+                    </div>
+                    <div class="flex-col flex gap-2 py-2">
+                        <label class="text-amber-800 " for="plant">Plant</label>
+                        <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="plant"
+                            id="plant">
+                            <option value="">tidak ada</option>
+                            <% plant.forEach(plant => { %>
+                             <option value="<%= plant.id_plant %>"><%= plant.plant %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="py-3">
+                        <input type="submit"
+                            class=" px-4 py-2 rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
+                            value="Submit">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+<div id="status"
+    class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 "
+    hidden></div>
+<div class="container px-28 py-8">
+    <div class="py-12">
+        <h1 class="text-4xl text-[#605c5c] font-bold"> Edit User</h1>
+
+    </div>
+
+    <hr>
+
+
+
+    <div>
+
+        <form action="./<%= data.id_unit %>/update" method="post" id="formInput">
+            <div class="w-96">
+                <div class="flex-col flex gap-2 py-2">
+                    <label class="" for="id_unit">Id Unit</label>
+                    <input type="text" name="id_unit" id="id_unit" value="<%= data.id_unit %> "
+                        class="w-full bg-slate-200  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                        readonly>
+                </div>
+                <div class="flex-col flex gap-2 py-2">
+                    <label class="" for="unit">Unit</label>
+                    <input type="unit" name="unit" id="unit" value="<%= data.unit %>"
+                        class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                            >
+                </div>
+                <div class="flex-col flex gap-2 py-2">
+                    <label class=""> Plant </label>
+                    <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="plant" id="plant">
+                        <option value="">tidak ada</option>
+                    <option value="<%= data.id_plant %>"  selected><%= data.plant?.plant %></option>
+                        <% plant.forEach(plant => { %>
+                            <% if (data.id_plant != plant.id_plant) { %>
+                                <option value="<%= plant.id_plant %>"><%= plant.plant %></option>
+                                <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="py-3 flex">
+                    <input onclick="return isSubmitData()" type="submit"
+                        class="cursor-pointer px-4 py-1  rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
+                        value="Save">
+        </form>
+        <form action="./<%= data.id_unit %>/delete" method="post">
+            <input type="submit"
+                class="cursor-pointer px-3 py-1 mx-8 rounded-3xl bg-gradient-to-t  border-2 text-amber-700  border-amber-700 "
+                value="Delete">
+        </form>
+    </div>
+</div>
+
+</div>
+</div>
+<script>
+
+
+
+
+    function isSubmitData() {
+        if (window.confirm('Apakah Anda yakin menyimpan perubahan ?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>

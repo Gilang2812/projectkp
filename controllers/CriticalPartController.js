@@ -8,7 +8,6 @@ const { Uom } = require('../models/UomModel');
 const { Jenis } = require('../models/JenisModel');
 const { Mrp } = require('../models/MrpModel');
 const { Plant } = require('../models/PlantModel');
-const { Sequelize } = require('sequelize');
 const { getExcel } = require('./BarangController');
 
 const getUserTable = async (req, res) => {
@@ -16,7 +15,7 @@ const getUserTable = async (req, res) => {
         const userData = getExcel(req)
         console.log(userData);
  
-        res.render('./User/excel',{data:userData})
+        res.render('./User/addUser',{data:userData})
         
     } catch (error) {
         console.log(error);

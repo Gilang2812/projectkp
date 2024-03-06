@@ -18,22 +18,22 @@
                 <div class="flex-col flex gap-2 py-2">
                     <label class="" for="username">Username</label>
                     <input type="text" name="username" id="username" value="<%= data.username %> "
-                        class="w-full  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
-                        disabled>
+                        class="w-full bg-slate-200  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                        readonly>
                 </div>
                 <div class="flex-col flex gap-2 py-2">
                     <label class="" for="password">Password</label>
                     <input type="password" name="password" id="password" value="<%= data.password %>"
-                        class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3"
-                        disabled>
+                        class="w-full bg-slate-200  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3"
+                        readonly>
                 </div>
                 <div class="flex-col flex gap-2 py-2">
-                    <label class="">status</label>
+                    <label class=""> Status </label>
                     <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="status" id="status">
-                        <% if (data.isadmin=0) { %>
+                        <% if (data.isadmin===0) { %>
                             <option value="0">User</option>
                             <option id value="1">Admin</option>
-                            <% } else if (data.isadmin=1) { %>
+                            <% } else if (data.isadmin===1) { %>
                                 <option value="1">Admin</option>
                                 <option value="0">User</option>
                                 <% } %>
@@ -42,7 +42,7 @@
                     </select>
                 </div>
                 <div class="py-3 flex">
-                    <input type="submit"
+                    <input onclick="return isSubmitData()" type="submit"
                         class="cursor-pointer px-4 py-1  rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
                         value="Save">
                     </form>
@@ -57,42 +57,12 @@
     </div>
 </div>
 <script>
-    function validateForm() {
-        var excelFile = document.getElementById("excelFile");
-        if (excelFile.files.length === 0) {
-            const error = document.createElement('p');
-            error.innerText = 'Pilih file terlebih dahulu.';
-            const status = document.getElementById('status')
-            status.hidden = false;
-            status.appendChild(error)
-            return false;
-        }
 
-        return true;
-    }
 
-    function displayFileName(input) {
-        const fileNameElement = document.getElementById('fileName');
-        const fileName = input.files[0].name;
-        fileNameElement.innerHTML = `<i class="far fa-file-excel mr-2"></i>${fileName}`;
 
-        if (isValidFile(fileName)) {
-            fileNameElement.innerHTML = `<i class="far fa-file-excel mr-2"></i>${fileName}`;
-        } else {
-            fileNameElement.innerHTML = 'File tidak valid. Harap pilih file .xlsx.';
-            // Reset the input field
-            input.value = '';
-        }
-    }
-
-    function isValidFile(fileName) {
-        const allowedExtensions = ['.xlsx'];
-        const fileExtension = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
-        return allowedExtensions.includes('.' + fileExtension);
-    }
 
     function isSubmitData() {
-        if (window.confirm('Apakah Anda yakin menambahkan user?')) {
+        if (window.confirm('Apakah Anda yakin menyimpan perubahan ?')) {
             return true;
         } else {
             return false;

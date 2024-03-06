@@ -11,111 +11,156 @@
     </header>
 
     <section class="p-12">
-        <div class="flex gap-10">
-            <div id="jenisBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
-                <h1 class="pb-2 font-bold"> Jenis</h1>
-                <hr class="py-2">
-                <select class="rounded-sm" name="jenisFilter" id="jenisFilter">
-                    <option class="rounded" value="tidak ada">tidak ada</option>
-                    <% data.jenis.forEach((jenis, index) => { %>
-                    <option value="<%= jenis.jenis %>"><%= jenis.jenis %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div id="ketersediaanBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
-                <h1 class="pb-2 font-bold"> Ketersediaan</h1>
-                <hr class="py-2">
-                <select class="w-full" name="ketersediaanFilter" id="ketersediaanFilter">
-                    <option value="tidak ada">tidak ada</option>
-                    <option value="cukup">cukup</option>
-                    <option value="kurang">kurang</option>
-                </select>
-            </div>
-            <div id="mrpBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
-                <h1 class="pb-2 font-bold"> Mrp</h1>
-                <hr class="py-2">
-                <select class="w-full" name="mrpFilter" id="mrpFilter">
-                    <option value="tidak ada">tidak ada</option>
-                    <% data.mrp.forEach((mrp, index) => { %>
-                    <option value="<%= mrp.mrp %>"><%= mrp.mrp %></option>
-                    <% }) %>
-                </select>
-            </div>
-        </div>
-        <div class="w-fit h-fit my-12">
-            <canvas class="h-96" id="clusteredChart" dataGrafik='<%= JSON.stringify(data.dataGrafik) %>'></canvas>
-        </div>
-
-        <div class="w-full px-2 py-4">
-            <input class="w-full px-5 py-3  rounded-3xl border-2 border-amber-800 focus:border-amber-800" type="text"
-                name="search" id="search">
-        </div>
-        <div class="w-fit">
-            <div class="bg-white rounded-lg overflow-auto w-fit shadow-md">
-                <div class="shadow-sm overflow-hidden">
-                    <table
-                        class="table-auto w-fit border-collapse px-4 md:px-8 lg:px-12 even:bg-[#F8F9FC] odd:bg-white">
-                        <thead class="bg-[#F1F3F9]">
-                            <tr class="">
-                                <th class="py-4 px-4">No</th>
-                                <th class="p-4">material master</th>
-                                <th class="px-4 w-fit">deskripsi</th>
-                                <th class="px-4 w-fit">User</th>
-                                <th class="px-4 w-fit">ON HAND</th>
-                                <th class="px-4 w-fit">ON PR</th>
-                                <th class="px-4 w-fit">ON PO</th>
-                                <th class="px-4 w-fit">Jan</th>
-                                <th class="px-4 w-fit">Feb</th>
-                                <th class="px-4 w-fit">Mar</th>
-                                <th class="px-4 w-fit">Apr</th>
-                                <th class="px-4 w-fit">Mei</th>
-                                <th class="px-4 w-fit">Jun</th>
-                                <th class="px-4 w-fit">Jul</th>
-                                <th class="px-4 w-fit">Ags</th>
-                                <th class="px-4 w-fit">Sep</th>
-                                <th class="px-4 w-fit">Okt</th>
-                                <th class="px-4 w-fit">Nov</th>
-                                <th class="px-4 w-fit">Des</th>
-                                <th class="px-4 w-fit ">Total Jan</th>
-                                <th class="px-8 w-full">Total Jan-Des</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% data.criticalParts.forEach((critical, index) => { %>
-                            <tr class="even:bg-[#F8F9FC] odd:bg-white">
-                                <td class="px-4"><%= index + 1 %></td>
-                                <td class="px-4"><%= critical.material_master %> </td>
-                                <td class="px-4"><%= critical.Barang.deskripsi %></td>
-                                <td class="px-4"><%= critical.Unit.unit.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.Barang.on_hand.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.Barang.on_proccess.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.Barang.on_po.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.jan.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.feb.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.mar.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.apr.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.mei.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.jun.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.jul.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.aug.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.sep.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.oct.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.nov.toLocaleString() %></td>
-                                <td class="px-4"><%= critical.des.toLocaleString() %></td>
-                                <td class="flex-row px-8 total-jan-des">
-                                    Rp&nbsp;<%= (critical.jan*critical.Barang.harga).toLocaleString() %>
-                                </td>
-                                <td class="px-8 total-jan-des">
-                                    Rp&nbsp;<%= ((critical.jan+critical.feb+critical.mar+critical.apr+critical.mei+critical.jun+critical.jul+critical.aug+critical.sep+critical.oct+critical.nov+critical.des)*critical.Barang.harga).toLocaleString() %>
-                                </td>
-                            </tr>
+        <div class="bg-white p-4 rounded-2xl   w-full">
+            <div class="flex gap-10">
+                <div id="jenisBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                    <h1 class="pb-2 font-bold"> Jenis</h1>
+                    <hr class="py-2">
+                    <select class="rounded-sm" name="jenisFilter" id="jenisFilter">
+                        <option class="rounded" value="tidak ada">tidak ada</option>
+                        <% data.jenis.forEach((jenis, index)=> { %>
+                            <option value="<%= jenis.jenis %>">
+                                <%= jenis.jenis %>
+                            </option>
                             <% }) %>
-                        </tbody>
-                    </table>
+                    </select>
+                </div>
+                <div id="ketersediaanBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                    <h1 class="pb-2 font-bold"> Ketersediaan</h1>
+                    <hr class="py-2">
+                    <select class="w-full" name="ketersediaanFilter" id="ketersediaanFilter">
+                        <option value="tidak ada">tidak ada</option>
+                        <option value="cukup">cukup</option>
+                        <option value="kurang">kurang</option>
+                    </select>
+                </div>
+                <div id="mrpBody" class="py-3 min-w-40 border-2 px-4 border-gray-400 rounded-3xl w-fit">
+                    <h1 class="pb-2 font-bold"> Mrp</h1>
+                    <hr class="py-2">
+                    <select class="w-full" name="mrpFilter" id="mrpFilter">
+                        <option value="tidak ada">tidak ada</option>
+                        <% data.mrp.forEach((mrp, index)=> { %>
+                            <option value="<%= mrp.mrp %>">
+                                <%= mrp.mrp %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="w-fit h-fit my-12">
+                <canvas class="h-96" id="clusteredChart" dataGrafik='<%= JSON.stringify(data.dataGrafik) %>'></canvas>
+            </div>
+
+            <div class="w-full px-2 py-4">
+                <input class="w-full px-5 py-3  rounded-3xl border-2 border-amber-800 focus:border-amber-800"
+                    type="text" name="search" id="search">
+            </div>
+            <div class="w-fit">
+                <div class="bg-white rounded-lg overflow-auto w-fit shadow-md">
+                    <div class="shadow-sm overflow-hidden">
+                        <table
+                            class="table-auto w-fit border-collapse px-4 md:px-8 lg:px-12 even:bg-[#F8F9FC] odd:bg-white">
+                            <thead class="bg-[#F1F3F9]">
+                                <tr class="">
+                                    <th class="py-4 px-4">No</th>
+                                    <th class="p-4">material master</th>
+                                    <th class="px-4 w-fit">deskripsi</th>
+                                    <th class="px-4 w-fit">User</th>
+                                    <th class="px-4 w-fit">ON HAND</th>
+                                    <th class="px-4 w-fit">ON PR</th>
+                                    <th class="px-4 w-fit">ON PO</th>
+                                    <th class="px-4 w-fit">Jan</th>
+                                    <th class="px-4 w-fit">Feb</th>
+                                    <th class="px-4 w-fit">Mar</th>
+                                    <th class="px-4 w-fit">Apr</th>
+                                    <th class="px-4 w-fit">Mei</th>
+                                    <th class="px-4 w-fit">Jun</th>
+                                    <th class="px-4 w-fit">Jul</th>
+                                    <th class="px-4 w-fit">Ags</th>
+                                    <th class="px-4 w-fit">Sep</th>
+                                    <th class="px-4 w-fit">Okt</th>
+                                    <th class="px-4 w-fit">Nov</th>
+                                    <th class="px-4 w-fit">Des</th>
+                                    <th class="px-4 w-fit ">Total Jan</th>
+                                    <th class="px-8 w-full">Total Jan-Des</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% data.criticalParts.forEach((critical, index)=> { %>
+                                    <tr class="even:bg-[#F8F9FC] odd:bg-white">
+                                        <td class="px-4">
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.material_master %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.Barang.deskripsi %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.Unit.unit.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.Barang.on_hand.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.Barang.on_proccess.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.Barang.on_po.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.jan.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.feb.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.mar.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.apr.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.mei.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.jun.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.jul.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.aug.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.sep.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.oct.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.nov.toLocaleString() %>
+                                        </td>
+                                        <td class="px-4">
+                                            <%= critical.des.toLocaleString() %>
+                                        </td>
+                                        <td class="flex-row px-8 total-jan-des">
+                                            Rp&nbsp;<%= (critical.jan*critical.Barang.harga).toLocaleString() %>
+                                        </td>
+                                        <td class="px-8 total-jan-des">
+                                            Rp&nbsp;<%=
+                                                ((critical.jan+critical.feb+critical.mar+critical.apr+critical.mei+critical.jun+critical.jul+critical.aug+critical.sep+critical.oct+critical.nov+critical.des)*critical.Barang.harga).toLocaleString()
+                                                %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-
     </section>
 </div>
 <script>
@@ -263,19 +308,19 @@
             data: {
                 labels: labels,
                 datasets: [{
-                        label: "Total On Hand",
-                        data: totalOnHandData,
-                        backgroundColor: "rgba(75, 192, 192, 0.2)",
-                        borderColor: "rgba(75, 192, 192, 1)",
-                        borderWidth: 1,
-                    },
-                    {
-                        label: "Required per Month",
-                        data: totalJanData,
-                        backgroundColor: "rgba(255, 99, 132, 0.2)",
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        borderWidth: 1,
-                    },
+                    label: "Total On Hand",
+                    data: totalOnHandData,
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1,
+                },
+                {
+                    label: "Required per Month",
+                    data: totalJanData,
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 1,
+                },
                 ],
             },
             options: {

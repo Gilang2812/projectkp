@@ -24,7 +24,18 @@ const createUser = async (req, res) => {
         res.status(500).json("Internal Excel error: " + error.message);
     }
 };
+const createUserForm =async (req,res)=>{
+    try {
+        const {username,password,status} = req.body
+        const newUser = await User.create({
+            username:username,password,isadmin:status})
 
+            res.redirect('./user')
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal server error, ' + error.message);
+    }
+}
 const getAllUsers = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
@@ -35,9 +46,6 @@ const getAllUsers = async (req, res) => {
             offset: (page - 1) * pageSize
         });
 
-        const totalCount = await User.count(); 
-        const totalPages = Math.ceil(totalCount / pageSize);
-        
         res.status(200).render('./User/user', {
             title: 'Express',
             layout: 'layout',
@@ -66,27 +74,25 @@ const editUser = async (req,res)=>{
 }
 
 const updateUser = async (req, res) => {
-    const { username, password, id_unit } = req.body;
-    const userId = req.params.id_user;
+    const { username, password, status } = req.body;
+    const {id_user} = req.params;
 
-    // Validasi manual
-    if (!username || !password || !id_unit) {
+    if ( !status) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
     try {
-        const existingUser = await User.findByPk(userId);
+        const existingUser = await User.findOne({where:{id_user}});
 
         if (!existingUser) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        const updatedUser = await User.update(
-            { username, password, isadmin },
-            { where: { id_user: userId } }
+        const updatedUser = await existingUser.update(
+            { username, password, isadmin:status },
         );
 
-        res.status(200).json(updatedUser);
+        res.status(200).redirect('/user');
     } catch (error) {
         console.error(error);
         res.status(500).json("Internal server error, " + error.message);
@@ -99,12 +105,13 @@ const deleteUser = async (req, res) => {
     try {
         const existingUser = await User.findOne({where:{id_user}});
 
-        if (existingUser.isadmin =1 || existingUser.isadmin===req.user.user.isadmin) {
-            return res.status(400).json({ error: 'User tidak bisa di hapus' });
-        }
-
-        await User.destroy({ where: { id_user: id_user } });
-        res.status(204).end();
+            if (existingUser.isadmin ==1 || existingUser.id_user===req.user.user.id_user) {
+          
+                return res.status(400).json("akun ini tidak bisa di hapus");
+            }
+            await User.destroy({ where: { id_user: id_user } });
+       
+        res.status(204).redirect('/user');
     } catch (error) {
         console.error(error);
         res.status(500).json("Internal server error, " + error.message);
@@ -128,6 +135,7 @@ const profile = async (req, res) => {
     }
 };
 module.exports = {
+    createUserForm,
     createUser,
     getAllUsers,
     updateUser,

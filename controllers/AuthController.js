@@ -20,7 +20,6 @@ const login = async (req,res)=>{
             return res.json("password tidak sesuai")
         }
         const token = generateToken(user)
-        console.log(token)
         res.cookie('token',token)
         return res.redirect('./criticalPart')
     } catch (error) {

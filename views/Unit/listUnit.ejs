@@ -4,9 +4,9 @@
     </div>
     <div class="flex w-full justify-end px-5 py-4">
         <a class="bg-gradient-to-b from-green-400 to-teal-600 px-3 py-1 rounded-lg text-white shadow-md shadow-emerald-700"
-            href="./addUser">
+            href="./addUnit">
             +
-            user</a>
+            unit</a>
     </div>
     <div class="bg-white shadow-cyan-200 rounded-3xl overflow-auto border-2 shadow-md">
         <div class="shadow-sm shadow-cyan-300 overflow-hidden">
@@ -14,29 +14,25 @@
                 <thead class="bg-gray-300">
                     <tr>
                         <th class="py-2">No</th>
-                        <th>Username</th>
-                        <th>Status</th>
+                        <th>Unitname</th>
+                        <th>Plant</th>
                         <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody class="border border-y-[#E1CFFF]">
-                    <% data.forEach((user, index) => { %>
+                    <% data.forEach((unit, index) => { %>
                     <tr class=" bg-gradient-to-t hover:from-gray-50 hover:to-slate-200 odd:bg-gray-100 even:bg-white">
                         <td><%= (currentPage-1)*totalPages+index+1 %></td>
-                        <td><%= user.username %></td>
-                        <% if (user.isadmin === 1) { %>
-                        <% user.isadmin = 'Admin' %>
-                        <% } else { %>
-                        <% user.isadmin = 'User' %>
-                        <% } %>
+                        <td><%= unit.unit %></td>
+                    
 
-                        <td><%= user.isadmin %></td>
+                        <td><%= unit && unit.plant ? unit.plant.plant : '' %></td>
                         <td class="p-2 w-30 text-white jus">
                             <div class="flex justify-evenly">
                             <a
-                                 href="./user/<%= user.id_user %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
-                           <form action="./user/<%= user.id_user %>/delete" method="post">
+                                 href="./unit/<%= unit.id_unit %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
+                           <form action="./unit/<%= unit.id_unit %>/delete" method="post">
                             <button onclick="return isDelete()" class="border-2 border-amber-600 bg-slate-100 text-amber-600 font-semibold rounded-full px-2 py-1 hover:bg-gray-50 hover:border-amber-800 hover:text-amber-800" type="submit">Delete</button>
                            </form>
                                 </div>
@@ -50,7 +46,7 @@
         </div>
     </div>
     <div id="pagination" class="flex gap-10 my-10 justify-center font-mono text-xl font-extrabold text-gray-400">
-        <a href="/user?page=<%= currentPage - 1 %>">
+        <a href="/unit?page=<%= currentPage - 1 %>">
             <div id="previousPage"
                 class="transition ease-in-out duration-500 border-2 border-gray-400 px-2 bg-white rounded md cursor-pointer hover:bg-slate-300 hover:text-white hover:border-white">
                 <% if (currentPage > 1) { %>
@@ -63,7 +59,7 @@
             </div>
         </a>
         <div id="currentPage"> <%= currentPage %> </div>
-        <a href="/user?page=<%= currentPage + 1 %>">
+        <a href="/unit?page=<%= currentPage + 1 %>">
             <div id="nextPage"
                 class="transition ease-in-out duration-500  border-2 border-gray-400 px-2 bg-white rounded-md cursor-pointer hover:bg-slate-300 hover:text-white hover:border-white">
                 <% if (currentPage < totalPages) { %>

@@ -1,5 +1,23 @@
 const xlsx = require('xlsx')
-const {Barang, Kategori, Jenis, Unit, Mrp, Uom} = require('../models/relation')
+const {Barang, Kategori, Jenis, Unit, Mrp, Uom, DetailPemintaanCriticalPart} = require('../models/relation')
+
+    
+function getExcel(req){
+    const excelFile = req.file;
+
+    if (!excelFile) {
+        return res.status(400).json("File Excel tidak ditemukan.");
+    }
+
+    const workbook = xlsx.read(excelFile.buffer, { type: 'buffer' });
+
+   const sheetName = req.body.sheetName || workbook.SheetNames[0];
+
+     const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+     return data
+
+}
+
 
 const getAllBarng = async(req,res)=>{
     try {
@@ -119,21 +137,76 @@ const  createBarang =async (req,res)=>{
     }
 }
 
-    
-function getExcel(req){
-    const excelFile = req.file;
+const editBarang=async (req,res)=>{
+    try {
+        const {material_master} = req.params
 
-    if (!excelFile) {
-        return res.status(400).json("File Excel tidak ditemukan.");
+        const existingBarang = await Barang.findOne({
+            where:{material_master},
+            include:[
+                {
+                    model:Mrp
+                },
+                {
+                    model:Jenis
+                },{
+                    model:Kategori
+                },{
+                   model:Uom 
+                }
+            ]
+        })
+        const mrp = await Mrp.findAll()
+        const kategori = await Kategori.findAll()
+        const uom = await Uom.findAll()
+        const jenis = await Jenis.findAll()
+        res.render('./Barang/editBarang', {data:existingBarang ,layout:'layout', mrp,uom,kategori,jenis})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal server error, ' + error.message);
     }
-
-    const workbook = xlsx.read(excelFile.buffer, { type: 'buffer' });
-
-   const sheetName = req.body.sheetName || workbook.SheetNames[0];
-
-     const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
-     return data
-
 }
 
-module.exports = {getAllBarng,getExcel,getExcelBarang,AddBarang, createBarang}
+const updateBarang = async (req,res)=>{
+    try {
+        const {material_master} = req.params
+        const {harga,on_hand,on_po,on_proccess,mrp,uom,kategori,jenis,ket,deskripsi}= req.body
+        const existingBarang = await Barang.findOne({  where:{material_master}, })
+        
+        await existingBarang.update({
+            harga,on_hand,on_hand,on_po,on_proccess,mrp,uom,kategori,jenis,ket,deskripsi
+        })
+        res.redirect('/barang')
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal server error, ' + error.message);
+    }
+}
+const deleteBarang = async (req, res) => {
+    try {
+        const { material_master } = req.params;
+        const existingBarang = await Barang.findOne({ where: { material_master } });
+
+        if (!existingBarang) {
+            res.status(404).render('error', { message: 'Barang not found' });
+            return;
+        }
+
+        const existingRelationBarang = await DetailPemintaanCriticalPart.findAll({ where: { material_master } });
+
+        if (existingRelationBarang && existingRelationBarang.length > 0) {
+            // res.status(400).render('error', { message: 'Barang cannot be deleted because it has existing relations' });
+            return;
+        }
+
+        await existingBarang.destroy();
+        res.redirect('/barang'); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error', { message: 'Internal server error, ' + error.message });
+    }
+};
+
+
+
+module.exports = {getAllBarng,editBarang,getExcel,getExcelBarang,AddBarang, createBarang,updateBarang,deleteBarang}
