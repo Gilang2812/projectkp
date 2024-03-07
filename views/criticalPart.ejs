@@ -244,31 +244,27 @@
         const jenisFilter = document.getElementById('jenisFilter').value;
         const ketersediaanFilter = document.getElementById('ketersediaanFilter').value;
         const mrpFilter = document.getElementById('mrpFilter').value;
-
-        // Save selected values to sessionStorage
+ 
         sessionStorage.setItem('jenisFilter', jenisFilter);
         sessionStorage.setItem('ketersediaanFilter', ketersediaanFilter);
         sessionStorage.setItem('mrpFilter', mrpFilter);
-
-        // Update the URL
+ 
         const url = new URL(window.location.href);
         url.searchParams.set('jenisFilter', jenisFilter);
         url.searchParams.set('ketersediaanFilter', ketersediaanFilter);
         url.searchParams.set('mrpFilter', mrpFilter);
 
-        // Replace the current URL without reloading the page
+ 
         history.replaceState(null, null, url.toString());
 
-        // Reload the page
+  
         window.location.reload();
     }
-
-    // Add event listeners to the dropdowns
+ 
     document.getElementById('jenisFilter').addEventListener('change', updateURLAndReload);
     document.getElementById('ketersediaanFilter').addEventListener('change', updateURLAndReload);
     document.getElementById('mrpFilter').addEventListener('change', updateURLAndReload);
-
-    // Function to set selected values on page load
+ 
     function setSelectedValuesOnLoad() {
         const jenisFilter = sessionStorage.getItem('jenisFilter');
         const ketersediaanFilter = sessionStorage.getItem('ketersediaanFilter');
@@ -287,21 +283,19 @@
         }
     }
 
-    // Call the function on page load
+ 
     window.addEventListener('load', setSelectedValuesOnLoad);
 
     document.addEventListener("DOMContentLoaded", function () {
-        // Mengambil dataGrafik dari atribut data pada elemen canvas
+ 
         const canvas = document.getElementById("clusteredChart");
         let dataGrafik = canvas.getAttribute('dataGrafik')
         dataGrafik = JSON.parse(dataGrafik)
-        console.log(dataGrafik)
-        // Membuat data yang dibutuhkan untuk Chart.js
+ 
         const labels = dataGrafik.map((item) => item.kategori);
         const totalOnHandData = dataGrafik.map((item) => item.totalOnHandForKategori);
         const totalJanData = dataGrafik.map((item) => item.totalJanForKategori);
-
-        // Membuat grafik menggunakan Chart.js
+ 
         const ctx = canvas.getContext("2d");
         const clusteredChart = new Chart(ctx, {
             type: "bar",

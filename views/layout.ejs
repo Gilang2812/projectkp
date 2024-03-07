@@ -193,7 +193,8 @@
 
     let url = new URLSearchParams(window.location.search)
     url = url.get('status')
-    if (url) {
+    statusNumber = parseInt(url)
+    if (statusNumber===1) {
         window.sessionStorage.setItem('status', url)
     }
     let status = sessionStorage.getItem('status')
