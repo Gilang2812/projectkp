@@ -8,132 +8,116 @@
     <% } %>
         <div class="container px-28 py-8">
             <div class="py-12">
-                <h1 class="text-4xl text-[#605c5c] font-bold"> Edit Barang</h1>
+                <h1 class="text-4xl text-[#605c5c] font-bold"> Edit Critical Part</h1>
 
             </div>
             <hr>
             <div>
-                <form action="./<%= data.material_master %>/update" method="post" id="formInput">
+                <form action="/cp/<%= data.material_master %>/<%= data.tahun %>/<%= data.id_unit %>/update" method="post"
+                    id="formInput">
                     <div class="w-96">
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="material_master">material_master</label>
-                            <input type="text" name="material_master" id="material_master"
-                                value="<%= data.material_master %> "
-                                class="w-full bg-slate-200  py-2 rounded-3xl  focus:outline-yellow-800 border-2 border-slate-300 px-3"
-                                readonly>
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="deskripsi">deskripsi</label>
-                            <input type="text" name="deskripsi" id="deskripsi" value="<%= data.deskripsi %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="harga">harga</label>
-                            <input type="text" name="harga" id="harga" value="<%= data.harga %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="on_hand">on hand</label>
-                            <input type="text" name="on_hand" id="on_hand" value="<%= data.on_hand %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="on_po">on po</label>
-                            <input type="text" name="on_po" id="on_po" value="<%= data.on_po %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="on_proccess">on proses</label>
-                            <input type="text" name="on_proccess" id="on_proccess" value="<%= data.on_proccess %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class="" for="ket">Keterangan</label>
-                            <input type="text" name="ket" id="ket" value="<%= data.ket %>"
-                                class="w-full  py-2 rounded-3xl focus:outline-yellow-800 border-2 border-slate-300 px-3">
-                        </div>
+                        <div class="w-96">
+                            <div class="flex-col flex gap-2 py-2">
+                                <label class="text-amber-800 " for="username">tahun</label>
+                                <input type="text" name="tahun" id="tahun" value="<%= data.tahun %> " disabled>
+                            </div>
+                            <div class="flex-col flex gap-2 py-2">
+                                <label class="text-amber-800 " for="material_">Barang</label>
+                                <input type="text" name="material_master" id="material_master"
+                                    value="<%= data.material_master %>" disabled>
+                            </div>
+                            <div class="flex-col flex gap-2 py-2">
+                                <label class="text-amber-800 " for="id_unit">Unit / User</label>
 
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class=""> mrp </label>
-                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="mrp" id="mrp">
-                                <option value="<%= data.Mrp.id_mrp %>">
-                                    <%= data.Mrp.mrp %>
-                                </option>
-                                <% mrp.forEach(mrp=> { %>
-                                    <% if (data.Mrp.id_mrp !=mrp.id_mrp) { %>
-                                        <option value="<%= mrp.id_mrp %>">
-                                            <%= mrp.mrp %>
-                                        </option>
-                                        <% } %>
-                                            <% }) %>
-
-
-                            </select>
+                                <input type="text" name="id_unit" id="id_unit" value="<%= data.Unit?.unit %>" disabled>
+                            </div>
+                            <div class="py-4 grid grid-cols-4 gap-4">
+                                <div>
+                                    <label for="jan">Jan:</label>
+                                    <input type="number" id="jan"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="jan" placeholder="jan" value="<%=data.jan %>">
+                                </div>
+                                <div>
+                                    <label for="feb">Feb:</label>
+                                    <input type="number" id="feb"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="feb" placeholder="feb" value="<%= data.feb %>" readonly
+                                        onfocus="this.removeAttribute('readonly');">
+                                </div>
+                                <div>
+                                    <label for="mar">Mar:</label>
+                                    <input type="number" id="mar"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="mar" placeholder="mar" value="<%=data.mar  %>">
+                                </div>
+                                <div>
+                                    <label for="apr">Apr:</label>
+                                    <input type="number" id="apr"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="apr" placeholder="apr" value="<%= data.apr %>">
+                                </div>
+                                <div>
+                                    <label for="mei">Mei:</label>
+                                    <input type="number" id="mei"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="mei" placeholder="mei" value="<%=data.mei  %>">
+                                </div>
+                                <div>
+                                    <label for="jun">Jun:</label>
+                                    <input type="number" id="jun"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="jun" placeholder="jun" value="<%= data.jun %>">
+                                </div>
+                                <div>
+                                    <label for="jul">Jul:</label>
+                                    <input type="number" id="jul"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="jul" placeholder="jul" value="<%=data.jul  %>">
+                                </div>
+                                <div>
+                                    <label for="ags">Ags:</label>
+                                    <input type="number" id="ags"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="ags" placeholder="aug" value="<%= data.aug %>">
+                                </div>
+                                <div>
+                                    <label for="sep">Sep:</label>
+                                    <input type="number" id="sep"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="sep" placeholder="sep" value="<%= data.sep %>">
+                                </div>
+                                <div>
+                                    <label for="okt">Okt:</label>
+                                    <input type="number" id="okt"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="okt" placeholder="oct" value="<%= data.oct %>">
+                                </div>
+                                <div>
+                                    <label for="nov">Nov:</label>
+                                    <input type="number" id="nov"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="nov" placeholder="nov" value="<%= data.nov %>">
+                                </div>
+                                <div>
+                                    <label for="des">Des:</label>
+                                    <input type="number" id="des"
+                                        class="w-16 h-12 p-2 border border-gray-300 rounded-md text-lowercase"
+                                        name="des" placeholder="des" value="<%= data.des %>">
+                                </div>
+                            </div>
+                            <div class="py-3">
+                                <input type="submit"
+                                    class="px-4 py-2 rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white"
+                                    value="Submit">
+                            </div>
                         </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class=""> uom </label>
-                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="uom" id="uom">
-                                <option value="<%= data.Uom.id_uom %>">
-                                    <%= data.Uom.uom %>
-                                </option>
-                                <% uom.forEach(uom=> { %>
-                                    <% if (data.Uom.id_uom !=uom.id_uom) { %>
-                                        <option value="<%= uom.id_uom %>">
-                                            <%= uom.uom %>
-                                        </option>
-                                        <% } %>
-                                            <% }) %>
-
-
-                            </select>
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class=""> kategori </label>
-                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="kategori"
-                                id="kategori">
-                                <option value="<%= data.Kategori.id_kategori %>">
-                                    <%= data.Kategori.kategori %>
-                                </option>
-                                <% kategori.forEach(kategori=> { %>
-                                    <% if (data.Kategori.id_kategori !=kategori.id_kategori) { %>
-                                        <option value="<%= kategori.id_kategori %>">
-                                            <%= kategori.kategori %>
-                                        </option>
-                                        <% } %>
-                                            <% }) %>
-
-
-                            </select>
-                        </div>
-                        <div class="flex-col flex gap-2 py-2">
-                            <label class=""> jenis </label>
-                            <select class="w-full border-2 border-slate-300  py-2 rounded-3xl px-4" name="jenis"
-                                id="jenis">
-                                <option value="<%= data.Jeni.id_jenis %>">
-                                    <%= data.Jeni.jenis %>
-                                </option>
-                                <% jenis.forEach(jenis=> { %>
-                                    <% if (data.Jeni.id_jenis !=jenis.id_jenis) { %>
-                                        <option value="<%= jenis.id_jenis %>">
-                                            <%= jenis.jenis %>
-                                        </option>
-                                        <% } %>
-                                            <% }) %>
-
-
-                            </select>
-                        </div>
-                        <div class="py-3 flex">
-                            <input type="submit"
-                                class="cursor-pointer px-4 py-1  rounded-3xl bg-gradient-to-t from-yellow-700 border-2 border-slate-300 to-amber-700 text-white "
-                                value="Save">
-                </form>
-                <form action="./<%= data.material_master %>/delete" method="post">
-                    <input type="submit"
-                        class="cursor-pointer px-3 py-1 mx-8 rounded-3xl bg-gradient-to-t  border-2 text-amber-700  border-amber-700 "
-                        value="Delete">
+                    </div>
                 </form>
             </div>
+        </div>
+        </div>
+        </div>
         </div>
 
         </div>

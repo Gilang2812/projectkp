@@ -21,7 +21,10 @@ const login = async (req,res)=>{
         }
         const token = generateToken(user)
         res.cookie('token',token)
-        return res.redirect('./criticalPart')
+        if(user.isadmin ===1){
+            return res.redirect(`./criticalPart?status=${user.isadmin}`)
+        }
+        res.redirect('criticalPart')
     } catch (error) {
         console.log(error)
         res.json(501).json('internal server errror, '+error.message)

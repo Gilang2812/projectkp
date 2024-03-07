@@ -11,6 +11,103 @@ const {
 } = require('../models/relation')
 const { getExcel } = require('./BarangController')
 
+const getAllDetailPermintaan = async (req,res)=>{
+  try {
+    const allCP = await DetailPemintaanCriticalPart.findAll({
+      include:[{
+        model:Barang,
+        include:[{
+          model:Kategori
+        },
+        {
+          model:Jenis
+        },{
+          model:Mrp
+        },{
+          model:Mrp
+        },{
+          model:Uom
+        }
+      ]
+      },{
+        model:Unit,
+        include:[{
+          model:Plant
+        }]
+      }]
+    }) 
+    res.render('CriticalPart/listCriticalPart',{data:allCP})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json('Internal server error, ' + error.message);
+  }
+}
+
+const editDetailPermintaan = async (req,res)=>{
+  try {
+    const {tahun,material_master,id_unit} = req.params
+    const existingCp = await DetailPemintaanCriticalPart.findOne({
+      where:{tahun,material_master,id_unit},
+      include:[{
+        model:Barang,
+        include:[{
+          model:Kategori
+        },
+        {
+          model:Jenis
+        },{
+          model:Mrp
+        },{
+          model:Mrp
+        },{
+          model:Uom
+        }
+      ]
+      },{
+        model:Unit,
+        include:[{
+          model:Plant
+        }]
+      }]
+    }) 
+    res.render('CriticalPart/editCriticalPart',{data:existingCp})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json('Internal server error, ' + error.message);
+  }
+}
+
+const updateDetailPermintaan = async (req,res)=>{
+  try {
+    let {jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,des} = req.body
+    const {material_master,tahun,id_unit} =req.params
+
+    const existingCp = await DetailPemintaanCriticalPart.findOne({
+      where:{material_master,tahun,id_unit}
+    })
+    await existingCp.update({jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,des})
+
+    res.redirect('/listCp')
+  } catch (error) {
+    console.error(error);
+    res.status(500).json('Internal server error, ' + error.message);
+  }
+}
+const deleteDetailPermintaan =async (req,res)=>{
+  try {
+    const {material_master,tahun,id_unit} =req.params
+
+    const existingCp = await DetailPemintaanCriticalPart.findOne({
+      where:{material_master,tahun,id_unit}
+    })
+
+    await existingCp.destroy()
+    res.redirect('/listCp')
+  } catch (error) {
+    console.error(error);
+    res.status(500).json('Internal server error, ' + error.message);
+  }
+}
 const getDetailPermintaan = async (req, res) => {
   try {
     const barangs = await Barang.findAll()
@@ -399,7 +496,7 @@ const createPermintaanForm = async (req, res) => {
       return res.json("data sudah ada")
     }
     await DetailPemintaanCriticalPart.create({tahun:tahunData,material_master,id_unit,jan,feb,mar,apr,mei,jun,jul,aug:ags,sep,oct:okt,nov,des})
-    res.redirect('/criticalPart')
+    res.redirect('/listCp')
   } catch (error) {
     console.error(error)
     res.status(500).json('Internal server error, ' + error.message)
@@ -411,5 +508,9 @@ module.exports = {
   getDetailPermintaan,
   getCriticalPart,
   getPermintaanExcel,
-  createPermintaanForm
+  createPermintaanForm,
+  getAllDetailPermintaan,
+  editDetailPermintaan,
+  updateDetailPermintaan,
+  deleteDetailPermintaan
 }

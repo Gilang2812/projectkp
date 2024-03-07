@@ -3,17 +3,17 @@
     class="transition-all ease-in-out duration-500 w-full bg-red-300 border-2 border-orange-500 text text-red-900 p-4 "
     ><h1><%= error %></h1></div>
     <% } %>
-<section class="lg:p-12  p-4 md:p-22 ">
+<section class="lg:p-12  p-4 md:p-22  w-fit">
     <div class="bg-white p-4 rounded-2xl h-screen  w-full">
 
         <div class="pb-8">
-            <h2 class="text-4xl text-[#605c5c] font-bold">Daftar Barang</h2>
+            <h2 class="text-4xl text-[#605c5c] font-bold">Daftar Critical Part</h2>
         </div>
-        <div class="flex w-full justify-end px-5 py-4">
+        <div class="flex w-full justify-start px-5 py-4">
             <a class="bg-gradient-to-b from-green-400 to-teal-600 px-3 py-1 rounded-lg text-white shadow-md shadow-emerald-700"
-                href="./addBarang">
+                href="/permintaan">
                 +
-                Barang</a>
+                CP</a>
         </div>
         <div class="py-4">
             <span class="py-4">
@@ -32,43 +32,71 @@
                     <thead class="bg-gray-300">
                         <tr>
                             <th class="px-2 py-2">No</th>
-                            <th>material_master</th>
-                            <th>deskripsi</th>
-                            <th>Harga</th>
-                            <th>on_hand</th>
-                            <th>on_po</th>
-                            <th>on_proses</th>
-                            <th>kategori</th>
-                            <th>jenis</th>
-                            <th>Mrp</th>
-                            <th>Uom</th>
-                            <th>Ket</th>
-                            <th>Action</th>
+                            <th class="px-4">material_master</th>
+                            <th class="px-4">deskripsi</th>
+                            <th class="px-4">User</th>
+                            <th class="px-4">Plant</th>
+                            <th class="px-4">Harga</th>
+                            <th class="px-4">kategori</th>
+                            <th class="px-4">jenis</th>
+                            <th class="px-4">mrp</th>
+                            <th class="px-4">uom</th>
+                            <th class="px-4">on_hand</th>
+                            <th class="px-4">on_po</th>
+                            <th class="px-4">on_proses</th>
+                            <th class="px-4">jan</th>
+                            <th class="px-4">Feb</th>
+                            <th class="px-4">mar</th>
+                            <th class="px-4">apr</th>
+                            <th class="px-4">mei</th>
+                            <th class="px-4">jun</th>
+                            <th class="px-4">jul</th>
+                            <th class="px-4">aug</th>
+                            <th class="px-4">sep</th>
+                            <th class="px-4">okt</th>
+                            <th class="px-4">nov</th>
+                            <th class="px-4">des</th> 
+                            <th class="px-4">Ket</th>
+                            <th class="px-4">Action</th>
                         </tr>
                     </thead>
 
                     <tbody class="border border-y-[#E1CFFF]">
-                        <% data.forEach((barang, index) => { %>
+                        <% data.forEach((cp, index) => { %>
                         <tr
                             class=" bg-gradient-to-t hover:from-gray-50 hover:to-slate-200 odd:bg-gray-100 even:bg-white">
-                            <td><%= index+1 %></td>
-                            <td><%= barang.material_master %></td>
-                            <td><%= barang.deskripsi %></td>
-                            <td><%= barang.harga.toLocaleString() %></td>
-                            <td><%= barang.on_hand.toLocaleString() %></td>
-                            <td><%= barang.on_po.toLocaleString() %></td>
-                            <td><%= barang.on_proccess.toLocaleString() %></td>
-                            <td><%= barang.Kategori.kategori %></td>
-                            <td><%= barang.Jeni.jenis %></td>
-                            <td><%= barang.Mrp.mrp %></td>
-                            <td><%= barang.Uom.uom %></td>
-                            <td><%= barang.ket %></td>
+                            <td class="px-2"><%= index+1 %></td>
+                            <td class="px-2"><%= cp.material_master %></td>
+                            <td class="px-2"><%= cp.Barang.deskripsi %></td>
+                            <td class="px-2"><%= cp.Unit.unit %></td>
+                            <td class="px-2"><%= cp.Unit.plant?.plant %></td>
+                            <td class="px-2"><%= cp.Barang.harga.toLocaleString() %></td>
+                            <td class="px-2"><%= cp.Barang.Kategori.kategori %></td>
+                            <td class="px-2"><%= cp.Barang.Jeni.jenis %></td>
+                            <td class="px-2"><%= cp.Barang.Mrp.mrp %></td>
+                            <td class="px-2"><%= cp.Barang.Uom.uom %></td>
+                            <td class="px-2"><%= cp.Barang.on_hand.toLocaleString() %></td>
+                            <td class="px-2"><%= cp.Barang.on_po.toLocaleString() %></td>
+                            <td class="px-2"><%= cp.Barang.on_proccess.toLocaleString() %></td>
+                            <td class="px-2"><%= cp.jan %></td>
+                            <td class="px-2"><%= cp.feb %></td>
+                            <td class="px-2"><%= cp.mar %></td>
+                            <td class="px-2"><%= cp.apr %></td>
+                            <td class="px-2"><%= cp.mei %></td>
+                            <td class="px-2"><%= cp.jun %></td>
+                            <td class="px-2"><%= cp.jul %></td>
+                            <td class="px-2"><%= cp.aug %></td>
+                            <td class="px-2"><%= cp.sep %></td>
+                            <td class="px-2"><%= cp.oct %></td>
+                            <td class="px-2"><%= cp.nov %></td>
+                            <td class="px-2"><%= cp.des %></td>   
+                            <td class="px-2"><%= cp.Barang.ket %></td>
 
                             <td class="p-2 w-30 text-white jus">
-                                <div class="flex justify-evenly">
+                                <div class="flex justify-evenly gap-2">
                                 <a
-                                     href="./barang/<%= barang.material_master %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
-                               <form action="./barang/<%= barang.material_master %>/delete" method="post">
+                                     href="./cp/<%= cp.material_master %>/<%= cp.tahun %>/<%= cp.id_unit %>"   class="transition-all duration-500 py-1 px-2 md:px-4 lg:px-6 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl hover:from-yellow-400 hover:to-amber-500  active:from-yellow-700 active:to-amber-800 ">Edit</a>
+                               <form action="./cp/<%= cp.material_master %>/<%= cp.tahun %>/<%= cp.id_unit %>/delete" method="post">
                                 <button onclick="return isDelete()" class="border-2 border-amber-600 bg-slate-100 text-amber-600 font-semibold rounded-full px-2 py-1 hover:bg-gray-50 hover:border-amber-800 hover:text-amber-800" type="submit">Delete</button>
                                </form>
                                     </div>
@@ -97,7 +125,7 @@
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
 
-       XLSX.writeFile(wb, 'table_barang.xlsx');
+       XLSX.writeFile(wb, 'table_criticalPart.xlsx');
     });
 
     const searchInput = document.getElementById('search');

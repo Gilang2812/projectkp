@@ -1,11 +1,11 @@
 var express = require('express');
 const { getAllUnit, formUnit, createUnit, deleteUnit, editUnit } = require('../controllers/UnitController');
 const { getAllUsers,getUserTable, createUser, editUser, createUserForm, deleteUser, updateUser } = require('../controllers/UserController');
-const {getCriticalPart, getDetailPermintaan, getPermintaanExcel, createCriticalPart, createPermintaanForm } = require('../controllers/DetailCriticalPartController');
+const {getCriticalPart, getDetailPermintaan, getPermintaanExcel, createCriticalPart, createPermintaanForm, getAllDetailPermintaan, editDetailPermintaan, updateDetailPermintaan, deleteDetailPermintaan } = require('../controllers/DetailCriticalPartController');
 const multer = require('multer');
 const { getAllBarng, getExcelBarang, AddBarang, createBarang, editBarang, updateBarang, deleteBarang } = require('../controllers/BarangController');
 const { formLogin, login, logout } = require('../controllers/AuthController');
-const { authenticateToken } = require('../controllers/middleware');
+const { authenticateToken,idAdmin } = require('../controllers/middleware');
 const { getAllJenis, createJenis, editJenis, updateJenis, deleteJenis } = require('../controllers/JenisController');
 const { updateKategori, deleteKategori, editKategori, createKategori, getAllKategori } = require('../controllers/KategoriController');
 const { getAllMrp, createMrp, editMrp, updateMrp, deleteMrp } = require('../controllers/MrpController');
@@ -20,19 +20,27 @@ router.get('/login',formLogin)
 router.post('/login',login)
 
 router.use(authenticateToken)
+
+
 router.get('/', (req, res, next)=> {
   res.render('index', { title: 'Home' ,layout:'layout',page:"home"});
+  next()
 });
-
+router.get('/criticalPart',getCriticalPart)
+router.post('/logout',logout)
+router.use(idAdmin)
 router.get('/unit',getAllUnit)
 router.get('/addUnit',formUnit)
 router.post('/addUnit',createUnit)
 router.get('/unit/:id_unit',editUnit)
 router.post('/unit/:id_unit/delete',deleteUnit)
 
-router.get('/criticalPart',getCriticalPart)
 router.get('/permintaan',getDetailPermintaan)
 router.post('/addPermintaanForm',createPermintaanForm)
+router.get('/listCp',getAllDetailPermintaan)
+router.get('/cp/:material_master/:tahun/:id_unit',editDetailPermintaan)
+router.post('/cp/:material_master/:tahun/:id_unit/update',updateDetailPermintaan)
+router.post('/cp/:material_master/:tahun/:id_unit/delete',deleteDetailPermintaan)
 
 router.get('/user',getAllUsers)
 router.get('/addUser',(req,res)=>{res.render('./User/addUser',{ layout:'layout'})})
@@ -50,7 +58,6 @@ router.get('/barang/:material_master',editBarang)
 router.post('/barang/:material_master/update',updateBarang)
 router.post('/barang/:material_master/delete',deleteBarang)
 router.post('/addBarang',createBarang)
-router.post('/logout',logout)
 
 router.get('/jenis',getAllJenis)
 router.get('/addJenis',(req,res)=>{res.render('Jenis/addJenis')})
